@@ -1,9 +1,6 @@
-// tslint:disable member-ordering
-
 class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
-
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -12,27 +9,33 @@ class Game {
         this.canvas.height = window.innerHeight;
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
+        document.addEventListener("click", this.mouseHandler);
 
         this.startScreen();
-        this.levelScreen()
-
+        // this.levelScreen();
+        
     }
+
     public startScreen() {
+        const redButton = "./assets/images/buttonRed.png";
+        this.loadImage(redButton, this.writeStartButtonToStartScreen);
+
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
-        const asteroidFileName = "./assets/images/buttonRed.png";
-        this.loadImage(asteroidFileName, this.writeStartButtonToStartScreen);
     }
 
-    public levelScreen(){
+    public levelScreen() {
+        const characterImage = "./assets/images/miniAd2.png"
+        this.loadImage(characterImage, this.characterPosition);
 
+        const speechBubble = "./assets/images/speechBubble.png"
+        this.loadImage(speechBubble, this.speechBubblePosition);
     }
 
-    /**
-         * Writes the loaded start button image to the start screen and writes a text on top of it
-         *
-         * @param{HTMLImageElement}img the loaded image object
-         */
+
+    private mouseHandler = (event: MouseEvent) => {
+        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);}
+
     private writeStartButtonToStartScreen(img: HTMLImageElement) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2 + 140; // 219 is a nice spot for the button
@@ -40,7 +43,18 @@ class Game {
         this.writeTextToCanvas("Play", 30, x, y + 26, "center", "black");
     }
 
+    private characterPosition(img: HTMLImageElement) {
+        const x = this.canvas.width / 2 - 100;
+        const y = this.canvas.height / 2 - 768;
+        this.ctx.drawImage(img, (x - img.width / 2), y);
+    }
 
+    private speechBubblePosition(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x + 70, y - 533);
+    }
+    
     /**
      * Writes text to the canvas
      * @param {string} text - Text to write
@@ -105,5 +119,7 @@ let init = function () {
     const Asteroids = new Game(document.getElementById("canvas") as HTMLCanvasElement);
 };
 
+
 // Add EventListener to load the game whenever the browser is ready
 window.addEventListener("load", init);
+
