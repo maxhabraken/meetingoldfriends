@@ -1,9 +1,6 @@
-// tslint:disable member-ordering
-
 class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
-
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -12,34 +9,92 @@ class Game {
         this.canvas.height = window.innerHeight;
         // Set the context of the canvas
         this.ctx = this.canvas.getContext("2d");
+        document.addEventListener("click", this.mouseHandler);
 
-        this.startScreen();
-        this.levelScreen()
+        //draws the screen that is highlighted
+        // this.startScreen();
+        this.levelScreen();
 
     }
+
+    //draws startscreen
     public startScreen() {
+        //loads and draws images to canvas
+        const Button = "./assets/images/button.png";
+        this.loadImage(Button, this.writeButtonToStartScreen);
+        //writes text to canvas
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
-        const asteroidFileName = "./assets/images/buttonRed.png";
-        this.loadImage(asteroidFileName, this.writeStartButtonToStartScreen);
     }
 
-    public levelScreen(){
-
+    //draws levelScreen
+    public levelScreen() {
+        //loads and draws images to canvas
+        const characterImage = "./assets/images/miniAd2.png";
+        this.loadImage(characterImage, this.characterPosition);
+        const speechBubble = "./assets/images/speechBubble.png";
+        this.loadImage(speechBubble, this.speechBubblePosition);
+        const choiceBox = "./assets/images/choiceBox.png";
+        this.loadImage(choiceBox, this.choiceBoxPosition);
     }
 
-    /**
-         * Writes the loaded start button image to the start screen and writes a text on top of it
-         *
-         * @param{HTMLImageElement}img the loaded image object
-         */
-    private writeStartButtonToStartScreen(img: HTMLImageElement) {
+    private mouseHandler = (event: MouseEvent) => {
+        //logs the coordinates of the position where the screen is clicked
+        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+        //hitbox of choiceBox 1
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
+            console.log('1');
+            const Button = "./assets/images/button.png";
+            this.loadImage(Button, this.writeButtonToStartScreen);
+        };
+        //hitbox of choiceBox 2
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
+            console.log('2');
+        };
+        //hitbox of choiceBox 3
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067) {
+            console.log('3');
+        };
+        //hitbox of choiceBox 4
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067) {
+            console.log('4');
+        };
+    }
+
+
+
+    //decides the positions of all the elements on the canvas
+    private choiceBoxPosition(img: HTMLImageElement) {
         const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2 + 140; // 219 is a nice spot for the button
-        this.ctx.drawImage(img, x - img.width / 2, y);
-        this.writeTextToCanvas("Play", 30, x, y + 26, "center", "black");
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x - img.width / 2, y - 540);
     }
 
+    private drawTitleScreenToCanvas(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x, y - 1000);
+        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
+    }
+
+    private writeButtonToStartScreen(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height - 1000;
+        this.ctx.drawImage(img, x - img.width / 2, y);
+        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
+    }
+
+    private characterPosition(img: HTMLImageElement) {
+        const x = this.canvas.width / 2 - 100;
+        const y = this.canvas.height / 2 - 768;
+        this.ctx.drawImage(img, (x - img.width / 2), y);
+    }
+
+    private speechBubblePosition(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x + 70, y - 533);
+    }
 
     /**
      * Writes text to the canvas
@@ -102,8 +157,10 @@ class Game {
 
 // This will get an HTML element. I cast this element in de appropriate type using <>
 let init = function () {
-    const Asteroids = new Game(document.getElementById("canvas") as HTMLCanvasElement);
+    const meetingnewfriends = new Game(document.getElementById("canvas") as HTMLCanvasElement);
 };
+
 
 // Add EventListener to load the game whenever the browser is ready
 window.addEventListener("load", init);
+
