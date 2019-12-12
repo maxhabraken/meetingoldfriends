@@ -11,36 +11,77 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
 
-        this.startScreen();
-        // this.levelScreen();
-        
+        //draws the screen that is highlighted
+        // this.startScreen();
+        this.levelScreen();
+
     }
 
+    //draws startscreen
     public startScreen() {
-        const redButton = "./assets/images/buttonRed.png";
-        this.loadImage(redButton, this.writeStartButtonToStartScreen);
-
+        //loads and draws images to canvas
+        const Button = "./assets/images/button.png";
+        this.loadImage(Button, this.writeButtonToStartScreen);
+        //writes text to canvas
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
     }
 
+    //draws levelScreen
     public levelScreen() {
-        const characterImage = "./assets/images/miniAd2.png"
+        //loads and draws images to canvas
+        const characterImage = "./assets/images/miniAd2.png";
         this.loadImage(characterImage, this.characterPosition);
-
-        const speechBubble = "./assets/images/speechBubble.png"
+        const speechBubble = "./assets/images/speechBubble.png";
         this.loadImage(speechBubble, this.speechBubblePosition);
+        const choiceBox = "./assets/images/choiceBox.png";
+        this.loadImage(choiceBox, this.choiceBoxPosition);
+    }
+
+    private mouseHandler = (event: MouseEvent) => {
+        //logs the coordinates of the position where the screen is clicked
+        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
+        //hitbox of choiceBox 1
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
+            console.log('1');
+            const Button = "./assets/images/button.png";
+            this.loadImage(Button, this.writeButtonToStartScreen);
+        };
+        //hitbox of choiceBox 2
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
+            console.log('2');
+        };
+        //hitbox of choiceBox 3
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067) {
+            console.log('3');
+        };
+        //hitbox of choiceBox 4
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067) {
+            console.log('4');
+        };
     }
 
 
-    private mouseHandler = (event: MouseEvent) => {
-        console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);}
 
-    private writeStartButtonToStartScreen(img: HTMLImageElement) {
+    //decides the positions of all the elements on the canvas
+    private choiceBoxPosition(img: HTMLImageElement) {
         const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2 + 140; // 219 is a nice spot for the button
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x - img.width / 2, y - 540);
+    }
+
+    private drawTitleScreenToCanvas(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x, y - 1000);
+        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
+    }
+
+    private writeButtonToStartScreen(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height - 1000;
         this.ctx.drawImage(img, x - img.width / 2, y);
-        this.writeTextToCanvas("Play", 30, x, y + 26, "center", "black");
+        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
     }
 
     private characterPosition(img: HTMLImageElement) {
@@ -54,7 +95,7 @@ class Game {
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
     }
-    
+
     /**
      * Writes text to the canvas
      * @param {string} text - Text to write
@@ -116,7 +157,7 @@ class Game {
 
 // This will get an HTML element. I cast this element in de appropriate type using <>
 let init = function () {
-    const Asteroids = new Game(document.getElementById("canvas") as HTMLCanvasElement);
+    const meetingnewfriends = new Game(document.getElementById("canvas") as HTMLCanvasElement);
 };
 
 
