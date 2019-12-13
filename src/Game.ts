@@ -44,8 +44,6 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
             console.log('1');
-            const Button = "./assets/images/button.png";
-            this.loadImage(Button, this.writeButtonToStartScreen);
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
@@ -60,8 +58,6 @@ class Game {
             console.log('4');
         };
     }
-
-
 
     //decides the positions of all the elements on the canvas
     private choiceBoxPosition(img: HTMLImageElement) {
