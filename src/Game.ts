@@ -6,6 +6,11 @@ class Game {
     public adDialogue: string;
     public joined: string
     public currentScreen: any;
+    public dialogue: any;
+    public answerOneInfo: any;
+    public answerTwoInfo: any;
+    public answerThreeInfo: any;
+    public answerFourInfo: any;
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -16,31 +21,44 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
 
+        this.dialogue = {
+            test : {
+                q: "hallo ik ben een dikke pedo",
+                a1:'rape me',
+                a2:'oh kanker',
+                a3:'kenkerdekdnker',
+                a4:'jemoeder'
+            }
+        }
+
+        this.answerOneInfo = this.dialogue.test.a1,20,44,641,'start','black'
 
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = "ja"
+        this.adDialogue = this.dialogue.test.q
         this.joined = ""
+
+        
 
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
 
         // allows you to write screens to the canvas
-        this.titleScreen();
-        // this.levelScreen();
+        // this.titleScreen();
+        this.levelScreen();
         // this.loop();
     }
 
     public loop = () => {
         // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
 
         //x1689 , y50
         requestAnimationFrame(this.loop);
-        
-        if (this.frameCounter < this.adDialogue.length){
+
+        if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, 1075, 60,'start',"rgb(69,66,63)");
+            this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
         }
 
         this.frameCounter++;
@@ -69,24 +87,8 @@ class Game {
         this.loadImage(choiceBox, this.choiceBoxPosition);
 
         this.currentScreen = "levelScreen";
+        this.loop();
     }
-
-    // private switchScreen() {
-    //     // If the current screen is an instance of the StartScreen class
-    //     if (
-    //         this.currentScreen instanceof TitleScreen
-    //         && this.mouseHandler(this.mouseHandler)
-    //     ) {
-    //         this.currentScreen = new LevelScreen(this.canvas, this.ctx, this.keyboardListener);
-    //     }
-
-    //     if (
-    //         this.currentScreen instanceof LevelScreen
-    //         && this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)
-    //     ) {
-    //         this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-    //     }
-    // }
 
     private mouseHandler = (event: MouseEvent) => {
         //logs the coordinates of the position where the screen is clicked
@@ -94,6 +96,7 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('A');
+            this.writeTextToCanvas(this.answerOneInfo)
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
@@ -114,6 +117,8 @@ class Game {
             this.levelScreen();
         }
     }
+
+
 
     //decides the positions of all the elements on the canvas
     private choiceBoxPosition(img: HTMLImageElement) {

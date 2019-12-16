@@ -12,6 +12,7 @@ class Game {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('A');
+                this.writeTextToCanvas(this.dialogue.test.q, 20, 100, 100, "center", 'black');
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
@@ -36,12 +37,22 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
+        this.dialogue = {
+            test: {
+                q: "hallo ik ben een dikke pedo",
+                a1: 'rape me',
+                a2: 'oh kanker',
+                a3: 'kenkerdekdnker',
+                a4: 'jemoeder'
+            }
+        };
+        this.answerOneInfo = this.dialogue.test.a1, 20, 44, 641, 'start', 'black';
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = "ja";
+        this.adDialogue = this.dialogue.test.q;
         this.joined = "";
         this.currentScreen = "titleScreen";
-        this.titleScreen();
+        this.levelScreen();
     }
     titleScreen() {
         const Button = "./assets/images/button.png";
@@ -58,6 +69,7 @@ class Game {
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
+        this.loop();
     }
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;
