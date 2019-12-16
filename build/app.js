@@ -10,24 +10,26 @@ class Game {
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
-            if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
-                console.log('1');
-                const Button = "./assets/images/button.png";
-                this.loadImage(Button, this.writeButtonToStartScreen);
+            if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
+                console.log('A');
             }
             ;
-            if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
-                console.log('2');
+            if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
+                console.log('B');
             }
             ;
-            if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067) {
-                console.log('3');
+            if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
+                console.log('C');
             }
             ;
-            if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067) {
-                console.log('4');
+            if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
+                console.log('D');
             }
             ;
+            if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.levelScreen();
+            }
         };
         this.canvas = canvasId;
         this.canvas.width = window.innerWidth;
@@ -36,15 +38,17 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = "dikke kanker piraat dikke kanker piraat";
+        this.adDialogue = "ja";
         this.joined = "";
-        this.startScreen();
+        this.currentScreen = "titleScreen";
+        this.titleScreen();
     }
-    startScreen() {
+    titleScreen() {
         const Button = "./assets/images/button.png";
         this.loadImage(Button, this.writeButtonToStartScreen);
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
+        this.currentScreen = "titleScreen";
     }
     levelScreen() {
         const characterImage = "./assets/images/miniAd2.png";
@@ -53,17 +57,12 @@ class Game {
         this.loadImage(speechBubble, this.speechBubblePosition);
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
+        this.currentScreen = "levelScreen";
     }
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
-    }
-    drawTitleScreenToCanvas(img) {
-        const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2;
-        this.ctx.drawImage(img, x, y - 1000);
-        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
     }
     writeButtonToStartScreen(img) {
         const x = this.canvas.width / 2;
@@ -99,16 +98,4 @@ let init = function () {
     const meetingnewfriends = new Game(document.getElementById("canvas"));
 };
 window.addEventListener("load", init);
-class Gamescreen {
-    constructor(canvas, ctx) {
-        this.canvas = canvas;
-        this.ctx = ctx;
-    }
-    writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
-        this.ctx.font = `${fontSize}px Undertale`;
-        this.ctx.fillStyle = color;
-        this.ctx.textAlign = alignment;
-        this.ctx.fillText(text, xCoordinate, yCoordinate);
-    }
-}
 //# sourceMappingURL=app.js.map

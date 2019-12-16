@@ -4,8 +4,8 @@ class Game {
     public frameCounter: number;
     public array: string[];
     public adDialogue: string;
-   
-    public joined:string
+    public joined: string
+    public currentScreen: any;
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -19,11 +19,14 @@ class Game {
 
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = "dikke kanker piraat dikke kanker piraat"
+        this.adDialogue = "ja"
         this.joined = ""
 
+        // allows methods to check which screen the game is on
+        this.currentScreen = "titleScreen";
+
         // allows you to write screens to the canvas
-        this.startScreen();
+        this.titleScreen();
         // this.levelScreen();
         // this.loop();
     }
@@ -44,13 +47,15 @@ class Game {
     }
 
     //draws startscreen
-    public startScreen() {
+    public titleScreen() {
         //loads and draws images to canvas
         const Button = "./assets/images/button.png";
         this.loadImage(Button, this.writeButtonToStartScreen);
         //writes text to canvas
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
+
+        this.currentScreen = "titleScreen";
     }
 
     //draws levelScreen
@@ -62,29 +67,52 @@ class Game {
         this.loadImage(speechBubble, this.speechBubblePosition);
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
+
+        this.currentScreen = "levelScreen";
     }
+
+    // private switchScreen() {
+    //     // If the current screen is an instance of the StartScreen class
+    //     if (
+    //         this.currentScreen instanceof TitleScreen
+    //         && this.mouseHandler(this.mouseHandler)
+    //     ) {
+    //         this.currentScreen = new LevelScreen(this.canvas, this.ctx, this.keyboardListener);
+    //     }
+
+    //     if (
+    //         this.currentScreen instanceof LevelScreen
+    //         && this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)
+    //     ) {
+    //         this.currentScreen = new TitleScreen(this.canvas, this.ctx);
+    //     }
+    // }
 
     private mouseHandler = (event: MouseEvent) => {
         //logs the coordinates of the position where the screen is clicked
         console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
         //hitbox of choiceBox 1
-        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
-            console.log('1');
-            const Button = "./assets/images/button.png";
-            this.loadImage(Button, this.writeButtonToStartScreen);
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
+            console.log('A');
         };
         //hitbox of choiceBox 2
-        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
-            console.log('2');
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
+            console.log('B');
         };
         //hitbox of choiceBox 3
-        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067) {
-            console.log('3');
+        if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
+            console.log('C');
         };
         //hitbox of choiceBox 4
-        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067) {
-            console.log('4');
+        if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
+            console.log('D');
         };
+
+        //hitbox of button
+        if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
+        }
     }
 
     //decides the positions of all the elements on the canvas
@@ -92,13 +120,6 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
-    }
-
-    private drawTitleScreenToCanvas(img: HTMLImageElement) {
-        const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2;
-        this.ctx.drawImage(img, x, y - 1000);
-        this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
     }
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
