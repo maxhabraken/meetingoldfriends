@@ -1,6 +1,11 @@
 class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
+    public frameCounter: number;
+    public array: string[];
+    public adDialogue: string;
+   
+    public joined:string
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -11,10 +16,31 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
 
-        //draws the screen that is highlighted
-        // this.startScreen();
-        this.levelScreen();
 
+        this.array = [];
+        this.frameCounter = 0;
+        this.adDialogue = "dikke kanker piraat dikke kanker piraat"
+        this.joined = ""
+
+        // allows you to write screens to the canvas
+        this.startScreen();
+        // this.levelScreen();
+        // this.loop();
+    }
+
+    public loop = () => {
+        // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+
+        //x1689 , y50
+        requestAnimationFrame(this.loop);
+        
+        if (this.frameCounter < this.adDialogue.length){
+            this.joined += (this.adDialogue[this.frameCounter])
+            this.writeTextToCanvas(this.joined, 30, 1075, 60,'start',"rgb(69,66,63)");
+        }
+
+        this.frameCounter++;
     }
 
     //draws startscreen
@@ -44,6 +70,8 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
             console.log('1');
+            const Button = "./assets/images/button.png";
+            this.loadImage(Button, this.writeButtonToStartScreen);
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
@@ -151,6 +179,7 @@ class Game {
     }
 }
 
+
 // This will get an HTML element. I cast this element in de appropriate type using <>
 let init = function () {
     const meetingnewfriends = new Game(document.getElementById("canvas") as HTMLCanvasElement);
@@ -159,4 +188,3 @@ let init = function () {
 
 // Add EventListener to load the game whenever the browser is ready
 window.addEventListener("load", init);
-

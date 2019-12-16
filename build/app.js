@@ -1,9 +1,19 @@
 class Game {
     constructor(canvasId) {
+        this.loop = () => {
+            requestAnimationFrame(this.loop);
+            if (this.frameCounter < this.adDialogue.length) {
+                this.joined += (this.adDialogue[this.frameCounter]);
+                this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
+            }
+            this.frameCounter++;
+        };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827) {
                 console.log('1');
+                const Button = "./assets/images/button.png";
+                this.loadImage(Button, this.writeButtonToStartScreen);
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827) {
@@ -24,7 +34,11 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
-        this.levelScreen();
+        this.array = [];
+        this.frameCounter = 0;
+        this.adDialogue = "dikke kanker piraat dikke kanker piraat";
+        this.joined = "";
+        this.startScreen();
     }
     startScreen() {
         const Button = "./assets/images/button.png";
