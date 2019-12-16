@@ -4,7 +4,7 @@ class Game {
             requestAnimationFrame(this.loop);
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
-                this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
+                this.writeTextToCanvas(this.joined, 30, 1075, this.dialogueY, 'start', "rgb(69,66,63)");
             }
             this.frameCounter++;
         };
@@ -12,7 +12,6 @@ class Game {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('A');
-                this.writeTextToCanvas(this.dialogue.test.q, 20, 100, 100, "center", 'black');
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
@@ -38,19 +37,37 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
-            test: {
-                q: "hallo ik ben een dikke pedo",
-                a1: 'rape me',
-                a2: 'oh kanker',
-                a3: 'kenkerdekdnker',
-                a4: 'jemoeder'
+            set1: {
+                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a3: 'C) Ik ken niemand die Ad heet.',
+                a4: ''
             }
         };
-        this.answerOneInfo = this.dialogue.test.a1, 20, 44, 641, 'start', 'black';
+        this.answerInfo = {
+            A: {
+                xPos: 44,
+                yPos: 641
+            },
+            B: {
+                xPos: 44,
+                yPos: 885
+            },
+            C: {
+                xPos: 1010,
+                yPos: 641
+            },
+            D: {
+                xPos: 1010,
+                yPos: 885
+            }
+        };
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = this.dialogue.test.q;
+        this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
+        this.dialogueY = 60;
         this.currentScreen = "titleScreen";
         this.levelScreen();
     }
@@ -75,6 +92,13 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
+        this.loadAnswers();
+    }
+    loadAnswers() {
+        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
     }
     writeButtonToStartScreen(img) {
         const x = this.canvas.width / 2;

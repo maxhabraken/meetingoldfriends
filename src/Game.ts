@@ -4,13 +4,11 @@ class Game {
     public frameCounter: number;
     public array: string[];
     public adDialogue: string;
-    public joined: string
+    public joined: string;
     public currentScreen: any;
     public dialogue: any;
-    public answerOneInfo: any;
-    public answerTwoInfo: any;
-    public answerThreeInfo: any;
-    public answerFourInfo: any;
+    public answerInfo: any;
+    public dialogueY: number
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -22,23 +20,40 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
 
         this.dialogue = {
-            test : {
-                q: "hallo ik ben een dikke pedo",
-                a1:'rape me',
-                a2:'oh kanker',
-                a3:'kenkerdekdnker',
-                a4:'jemoeder'
+            set1: {
+                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a3: 'C) Ik ken niemand die Ad heet.',
+                a4: ''
             }
         }
 
-        this.answerOneInfo = this.dialogue.test.a1,20,44,641,'start','black'
+        this.answerInfo = {
+            A: {
+                xPos: 44,
+                yPos: 641
+            },
+            B: {
+                xPos: 44,
+                yPos: 885
+            },
+            C: {
+                xPos: 1010,
+                yPos: 641
+            },
+            D: {
+                xPos: 1010,
+                yPos: 885
+            }
+        };
 
         this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = this.dialogue.test.q
+        this.adDialogue = this.dialogue.set1.q1
         this.joined = ""
+        this.dialogueY = 60
 
-        
 
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
@@ -58,8 +73,13 @@ class Game {
 
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
+            this.writeTextToCanvas(this.joined, 30, 1075, this.dialogueY, 'start', "rgb(69,66,63)");
         }
+
+        // if (this.joined.length == 38) { this.dialogueY += 20 }
+
+
+
 
         this.frameCounter++;
     }
@@ -96,7 +116,6 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('A');
-            this.writeTextToCanvas(this.answerOneInfo)
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
@@ -125,6 +144,18 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
+        this.loadAnswers();
+    }
+
+    private loadAnswers() {
+        // write the first answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
+        // write the seconds answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
+        // write the third answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
+        // write the fourth answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
     }
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
