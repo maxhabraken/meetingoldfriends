@@ -2,10 +2,18 @@ class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
     public frameCounter: number;
-    public array: string[];
     public adDialogue: string;
+<<<<<<< Updated upstream
     public joined: string
     public currentScreen: any;
+=======
+    public currentScreen: any;
+    public dialogue: any;
+    public answerInfo: any;
+    public questionInfo: any;
+    public dialogueY: number;
+    public characterText: string[];
+>>>>>>> Stashed changes
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -16,23 +24,66 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
 
+<<<<<<< Updated upstream
+=======
+        this.dialogue = {
+            set1: {
+                q1: 'Die naam komt me bekend voor',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a3: 'C) Ik ken niemand die Ad heet.',
+                a4: ''
+            }
+        }
 
-        this.array = [];
+        this.questionInfo = {
+            xPos: 1075,
+            yPos: 60
+        };
+
+        this.answerInfo = {
+            A: {
+                xPos: 44,
+                yPos: 641
+            },
+            B: {
+                xPos: 44,
+                yPos: 885
+            },
+            C: {
+                xPos: 1010,
+                yPos: 641
+            },
+            D: {
+                xPos: 1010,
+                yPos: 885
+            }
+        };
+>>>>>>> Stashed changes
+
         this.frameCounter = 0;
+<<<<<<< Updated upstream
         this.adDialogue = "ja"
         this.joined = ""
+=======
+        this.adDialogue = this.dialogue.set1.q1;
+>>>>>>> Stashed changes
 
         // allows methods to check which screen the game is on
-        this.currentScreen = "titleScreen";
+        this.currentScreen = "";
 
         // allows you to write screens to the canvas
         this.titleScreen();
         // this.levelScreen();
+<<<<<<< Updated upstream
         // this.loop();
+=======
+>>>>>>> Stashed changes
     }
 
     public loop = () => {
         // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+<<<<<<< Updated upstream
         
 
         //x1689 , y50
@@ -43,7 +94,16 @@ class Game {
             this.writeTextToCanvas(this.joined, 30, 1075, 60,'start',"rgb(69,66,63)");
         }
 
+=======
+        //x1689 , y50
+        requestAnimationFrame(this.loop);
+>>>>>>> Stashed changes
         this.frameCounter++;
+    }
+
+    public startStoryline() {
+        // Loads the first question and the corresponding set of answers
+        this.loadSet1();
     }
 
     //draws startscreen
@@ -69,6 +129,11 @@ class Game {
         this.loadImage(choiceBox, this.choiceBoxPosition);
 
         this.currentScreen = "levelScreen";
+<<<<<<< Updated upstream
+=======
+        this.loop();
+        this.startStoryline();
+>>>>>>> Stashed changes
     }
 
     // private switchScreen() {
@@ -120,6 +185,23 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
+<<<<<<< Updated upstream
+=======
+        this.startStoryline();
+    }
+
+    private loadSet1() {
+        // write the first answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "rgb(69,66,63)");
+        // write the seconds answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "rgb(69,66,63)");
+        // write the third answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
+        // write the fourth answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "rgb(69,66,63)");
+
+        this.writeTextToCanvas(this.dialogue.set1.q1, 30, this.questionInfo.xPos, this.questionInfo.yPos, "start", "rgb(69,66,63)");
+>>>>>>> Stashed changes
     }
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
