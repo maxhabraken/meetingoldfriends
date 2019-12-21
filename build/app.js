@@ -1,14 +1,11 @@
 class Game {
     constructor(canvasId) {
         this.loop = () => {
-            requestAnimationFrame(this.loop);
-<<<<<<< Updated upstream
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
                 this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
             }
-=======
->>>>>>> Stashed changes
+            requestAnimationFrame(this.loop);
             this.frameCounter++;
         };
         this.mouseHandler = (event) => {
@@ -39,14 +36,6 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
-<<<<<<< Updated upstream
-        this.array = [];
-        this.frameCounter = 0;
-        this.adDialogue = "ja";
-        this.joined = "";
-        this.currentScreen = "titleScreen";
-        this.titleScreen();
-=======
         this.dialogue = {
             set1: {
                 q1: 'Die naam komt me bekend voor',
@@ -79,13 +68,14 @@ class Game {
             }
         };
         this.frameCounter = 0;
+        this.adDialogue = "ja";
+        this.joined = "";
         this.adDialogue = this.dialogue.set1.q1;
         this.currentScreen = "";
         this.titleScreen();
     }
     startStoryline() {
         this.loadSet1();
->>>>>>> Stashed changes
     }
     titleScreen() {
         const Button = "./assets/images/button.png";
@@ -102,18 +92,13 @@ class Game {
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
-<<<<<<< Updated upstream
-=======
         this.loop();
         this.startStoryline();
->>>>>>> Stashed changes
     }
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
-<<<<<<< Updated upstream
-=======
         this.startStoryline();
     }
     loadSet1() {
@@ -122,7 +107,6 @@ class Game {
         this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "rgb(69,66,63)");
         this.writeTextToCanvas(this.dialogue.set1.q1, 30, this.questionInfo.xPos, this.questionInfo.yPos, "start", "rgb(69,66,63)");
->>>>>>> Stashed changes
     }
     writeButtonToStartScreen(img) {
         const x = this.canvas.width / 2;
