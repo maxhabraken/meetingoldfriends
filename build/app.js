@@ -1,12 +1,8 @@
 class Game {
     constructor(canvasId) {
         this.loop = () => {
-            requestAnimationFrame(this.loop);
-            if (this.frameCounter < this.adDialogue.length) {
-                this.joined += (this.adDialogue[this.frameCounter]);
-                this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
-            }
             this.frameCounter++;
+            requestAnimationFrame(this.loop);
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
@@ -36,12 +32,15 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
-        this.array = [];
         this.frameCounter = 0;
-        this.adDialogue = "ja";
-        this.joined = "";
+        this.animatedText = "ja dit is pure kanker";
+        for (let i = 0; i < this.animatedText.length; i++) {
+            this.animatedTextArray.push(this.animatedText[i]);
+        }
+        console.log(this.animatedTextArray);
         this.currentScreen = "titleScreen";
         this.titleScreen();
+        this.loop();
     }
     titleScreen() {
         const Button = "./assets/images/button.png";

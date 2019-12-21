@@ -2,10 +2,10 @@ class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
     public frameCounter: number;
-    public array: string[];
-    public adDialogue: string;
-    public joined: string
     public currentScreen: any;
+
+    public animatedTextArray: string[];
+    public animatedText: string;
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -17,33 +17,29 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
 
 
-        this.array = [];
+    
         this.frameCounter = 0;
-        this.adDialogue = "ja"
-        this.joined = ""
+        this.animatedText = "ja dit is pure kanker"
+      
+        for (let i = 0; i < this.animatedText.length; i++) {
+            this.animatedTextArray.push(this.animatedText[i])
+        }
 
+        console.log(this.animatedTextArray);
+        
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
 
         // allows you to write screens to the canvas
         this.titleScreen();
         // this.levelScreen();
-        // this.loop();
+        this.loop();
     }
 
     public loop = () => {
-        // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-
-        //x1689 , y50
-        requestAnimationFrame(this.loop);
-        
-        if (this.frameCounter < this.adDialogue.length){
-            this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, 1075, 60,'start',"rgb(69,66,63)");
-        }
 
         this.frameCounter++;
+        requestAnimationFrame(this.loop);
     }
 
     //draws startscreen
