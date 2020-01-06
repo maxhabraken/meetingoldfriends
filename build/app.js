@@ -28,6 +28,10 @@ class Game {
             ;
             if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.introductionScreen();
+            }
+            if (event.clientX >= 12 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 1067 && this.currentScreen === "introductionScreen") {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.levelScreen();
             }
         };
@@ -37,13 +41,62 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
-            set1: {
+            introductieSet: {
+                dialogueAd1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
+                dialoguePlayer1: 'Met mij gaat alles goed, met jou?',
+                dialogueAd2: 'Hoe heet je?',
+                dialoguePlayer2: 'Mijn naam is ...',
+                dialogueAd3: 'Aangenaam kennis te maken',
+            },
+            set0: {
                 q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
                 a4: ''
-            }
+            },
+            set1: {
+                q1: 'Ik ken je van school',
+                a1: 'Op welke school zit ik dan?',
+                a2: 'Ik heb die naam echt nog nooit gehoord',
+                a3: 'Zou goed kunnen',
+                a4: ''
+            },
+            set2: {
+                q1: 'Jij zit toch op de regenboog?',
+                a1: 'Hoe ben je daar achter gekomen?',
+                a2: 'Dat Klopt',
+                a3: '',
+                a4: '',
+            },
+            set3: {
+                q1: 'Dat hoorde ik van een vriend van je',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set4: {
+                q1: 'Wat doe je graag in je vrije tijd?',
+                a1: 'Tekenen',
+                a2: 'Sporten',
+                a3: 'Gamen',
+                a4: 'Koken',
+            },
+            set5: {
+                q1: 'Oh leuk daar hou ik ook van!',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set6: {
+                q1: 'Daar ben je vast heel goed in',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
         };
         this.answerInfo = {
             A: {
@@ -69,7 +122,7 @@ class Game {
         this.joined = "";
         this.dialogueY = 60;
         this.currentScreen = "titleScreen";
-        this.levelScreen();
+        this.titleScreen();
     }
     titleScreen() {
         const Button = "./assets/images/button.png";
@@ -77,6 +130,16 @@ class Game {
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
         this.currentScreen = "titleScreen";
+    }
+    introductionScreen() {
+        const characterImage = "./assests/images/miniAd2.png";
+        this.loadImage(characterImage, this.characterPosition);
+        const speechBubble = "./assets/images/speechBubble.png";
+        this.loadImage(speechBubble, this.speechBubblePosition);
+        const introBox = "./assets/images/choiceBox.png";
+        this.loadImage(introBox, this.choiceBoxPosition);
+        this.currentScreen = "introductionScreen";
+        this.loop();
     }
     levelScreen() {
         const characterImage = "./assets/images/miniAd2.png";
