@@ -4,7 +4,7 @@ class Game {
             requestAnimationFrame(this.loop);
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
-                this.writeTextToCanvas(this.joined, 30, 1075, this.dialogueY, 'start', "rgb(69,66,63)");
+                this.writeTextToCanvas(this.joined, 30, this.questionInfo.xPos, this.questionInfo.yPos, 'start', "rgb(69,66,63)");
             }
             this.frameCounter++;
         };
@@ -45,6 +45,10 @@ class Game {
                 a4: ''
             }
         };
+        this.questionInfo = {
+            xPos: 1075,
+            yPos: 60
+        };
         this.answerInfo = {
             A: {
                 xPos: 44,
@@ -67,9 +71,8 @@ class Game {
         this.frameCounter = 0;
         this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
-        this.dialogueY = 60;
         this.currentScreen = "titleScreen";
-        this.levelScreen();
+        this.titleScreen();
     }
     titleScreen() {
         const Button = "./assets/images/button.png";

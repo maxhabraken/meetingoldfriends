@@ -8,7 +8,7 @@ class Game {
     public currentScreen: any;
     public dialogue: any;
     public answerInfo: any;
-    public dialogueY: number
+    public questionInfo: any;
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -27,6 +27,11 @@ class Game {
                 a3: 'C) Ik ken niemand die Ad heet.',
                 a4: ''
             }
+        }
+
+        this.questionInfo = {
+            xPos: 1075,
+            yPos: 60
         }
 
         this.answerInfo = {
@@ -52,15 +57,14 @@ class Game {
         this.frameCounter = 0;
         this.adDialogue = this.dialogue.set1.q1
         this.joined = ""
-        this.dialogueY = 60
 
 
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
 
         // allows you to write screens to the canvas
-        // this.titleScreen();
-        this.levelScreen();
+        this.titleScreen();
+        // this.levelScreen();
         // this.loop();
     }
 
@@ -73,7 +77,7 @@ class Game {
 
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, 1075, this.dialogueY, 'start', "rgb(69,66,63)");
+            this.writeTextToCanvas(this.joined, 30, this.questionInfo.xPos, this.questionInfo.yPos, 'start', "rgb(69,66,63)");
         }
 
         // if (this.joined.length == 38) { this.dialogueY += 20 }
