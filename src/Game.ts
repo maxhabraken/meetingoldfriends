@@ -1,11 +1,23 @@
 class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
+
     public frameCounter: number;
     public currentScreen: any;
 
+<<<<<<< Updated upstream
     public animatedTextArray: string[];
     public animatedText: string;
+=======
+    public dialogue: any;
+    public answerCoordinates: any;
+    public questionInfo: any;
+ 
+    public animatedTextArray: any[];
+    public animatedText: string;
+    public animatedTextY: number;
+    public animatedTextX: number;
+>>>>>>> Stashed changes
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -16,6 +28,7 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
 
+<<<<<<< Updated upstream
 
     
         this.frameCounter = 0;
@@ -29,60 +42,108 @@ class Game {
         
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
+=======
+        this.dialogue = {
+            set1: {
+                q1: 'Die naam komt me bekend voor',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a3: 'C) Ik ken niemand die Ad heet.',
+                a4: ''
+            }
+        }
 
+        this.questionInfo = {
+            xPos: 1075,
+            yPos: 60
+        };
+
+        this.answerCoordinates = {
+            A: {
+                xPos: 44,
+                yPos: 641
+            },
+            B: {
+                xPos: 44,
+                yPos: 885
+            },
+            C: {
+                xPos: 1010,
+                yPos: 641
+            },
+            D: {
+                xPos: 1010,
+                yPos: 885
+            }
+        };
+        this.currentScreen = "";
+        this.frameCounter = 0;
+
+        this.animatedText = "ja dit is pure kanker"
+        this.animatedTextArray = []
+        this.animatedTextX = 1075
+        this.animatedTextY = 60
+>>>>>>> Stashed changes
+
+        console.log(this.animatedText)
+        for (let i = 0; i < this.animatedText.length; i++) {
+            this.animatedTextArray.push(this.animatedText[i])
+        }
+        
         // allows you to write screens to the canvas
+<<<<<<< Updated upstream
         this.titleScreen();
         // this.levelScreen();
         this.loop();
+=======
+        // this.titleScreen();
+        this.levelScreen();
+
+ 
+>>>>>>> Stashed changes
     }
 
-    public loop = () => {
 
+    public loop = () => {
+<<<<<<< Updated upstream
+
+=======
+        if (this.frameCounter < this.animatedTextArray.length){
+            this.writeTextToCanvas(this.animatedTextArray[this.frameCounter], 30, this.animatedTextX, this.animatedTextY,'start',"rgb(69,66,63)");
+            this.animatedTextX += 15
+
+        }
+        requestAnimationFrame(this.loop);
+>>>>>>> Stashed changes
         this.frameCounter++;
         requestAnimationFrame(this.loop);
     }
 
-    //draws startscreen
     public titleScreen() {
         //loads and draws images to canvas
         const Button = "./assets/images/button.png";
         this.loadImage(Button, this.writeButtonToStartScreen);
         //writes text to canvas
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
-        this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
-
+        this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300)
         this.currentScreen = "titleScreen";
     }
 
     //draws levelScreen
     public levelScreen() {
-        //loads and draws images to canvas
-        const characterImage = "./assets/images/miniAd2.png";
-        this.loadImage(characterImage, this.characterPosition);
         const speechBubble = "./assets/images/speechBubble.png";
         this.loadImage(speechBubble, this.speechBubblePosition);
+        const characterImage = "./assets/images/miniAd2.png";
+        this.loadImage(characterImage, this.characterPosition);
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
-
         this.currentScreen = "levelScreen";
+<<<<<<< Updated upstream
+=======
+        this.startStoryline();
+        this.loop();
+>>>>>>> Stashed changes
     }
-
-    // private switchScreen() {
-    //     // If the current screen is an instance of the StartScreen class
-    //     if (
-    //         this.currentScreen instanceof TitleScreen
-    //         && this.mouseHandler(this.mouseHandler)
-    //     ) {
-    //         this.currentScreen = new LevelScreen(this.canvas, this.ctx, this.keyboardListener);
-    //     }
-
-    //     if (
-    //         this.currentScreen instanceof LevelScreen
-    //         && this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)
-    //     ) {
-    //         this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-    //     }
-    // }
 
     private mouseHandler = (event: MouseEvent) => {
         //logs the coordinates of the position where the screen is clicked
@@ -116,6 +177,23 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
+<<<<<<< Updated upstream
+=======
+        this.startStoryline();
+    }
+
+    private loadSet1() {
+        // write the first answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerCoordinates.A.xPos, this.answerCoordinates.A.yPos, "start", "rgb(69,66,63)");
+        // write the seconds answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerCoordinates.B.xPos, this.answerCoordinates.B.yPos, "start", "rgb(69,66,63)");
+        // write the third answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerCoordinates.C.fontSize, this.answerCoordinates.C.xPos, this.answerCoordinates.C.yPos, "start", "black");
+        // write the fourth answer to the choiceBox
+        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerCoordinates.D.xPos, this.answerCoordinates.D.yPos, "start", "rgb(69,66,63)");
+
+        // this.writeTextToCanvas(this.dialogue.set1.q1, 30, this.questionInfo.xPos, this.questionInfo.yPos, "start", "rgb(69,66,63)");
+>>>>>>> Stashed changes
     }
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
