@@ -23,11 +23,7 @@ class Game {
 
         this.dialogue = {
             set1: {
-<<<<<<< Updated upstream
-                q1: 'Die naam komt me bekend voor',
-=======
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
->>>>>>> Stashed changes
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
@@ -69,36 +65,26 @@ class Game {
 
         // allows you to write screens to the canvas
         this.titleScreen();
-<<<<<<< Updated upstream
-=======
         // this.levelScreen();
->>>>>>> Stashed changes
     }
 
     public loop = () => {
-<<<<<<< Updated upstream
-        if (this.frameCounter < this.adDialogue.length){
-            this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, 1075, 60,'start',"rgb(69,66,63)");
-=======
-        requestAnimationFrame(this.loop);
-
-        // checks whether or not the end of the dialogue has been reacahed, if this is the case the loop has been stopped
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
->>>>>>> Stashed changes
-        }
-        // writes the text in the speech bubble
-        this.writeTextToSpeechBubble();
+            this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
+            requestAnimationFrame(this.loop);
 
-<<<<<<< Updated upstream
-        //x1689 , y50
-        requestAnimationFrame(this.loop);
-=======
-        // increases the number on the counter by 1 and logs the amount.
->>>>>>> Stashed changes
-        this.frameCounter++;
-        console.log(this.frameCounter);
+            // checks whether or not the end of the dialogue has been reacahed, if this is the case the loop has been stopped
+            if (this.frameCounter < this.adDialogue.length) {
+                this.joined += (this.adDialogue[this.frameCounter])
+            }
+            // writes the text in the speech bubble
+            this.writeTextToSpeechBubble();
+            requestAnimationFrame(this.loop);
+            // increases the number on the counter by 1 and logs the amount.
+            this.frameCounter++;
+            console.log(this.frameCounter);
+        }
     }
 
     public startStoryline() {
@@ -130,10 +116,6 @@ class Game {
 
         this.currentScreen = "levelScreen";
         this.loop();
-<<<<<<< Updated upstream
-        this.startStoryline();
-=======
->>>>>>> Stashed changes
     }
 
     private mouseHandler = (event: MouseEvent) => {
