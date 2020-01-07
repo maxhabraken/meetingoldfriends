@@ -10,77 +10,80 @@ class Game {
     public answerInfo: any;
     public questionInfo: any;
 
-    public constructor(canvasId: HTMLCanvasElement) {
-        // Construct all of the canvas
-        this.canvas = canvasId;
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        // Set the context of the canvas
-        this.ctx = this.canvas.getContext("2d");
-        document.addEventListener("click", this.mouseHandler);
+        public constructor(canvasId: HTMLCanvasElement) {
+            // Construct all of the canvas
+            this.canvas = canvasId;
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+            // Set the context of the canvas
+            this.ctx = this.canvas.getContext("2d");
+            document.addEventListener("click", this.mouseHandler);
 
-        this.dialogue = {
-            set1: {
-                q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
-                a1: 'A) Waarschijnlijk niet',
-                a2: 'B) Zou je me kunnen vertellen waarvan?',
-                a3: 'C) Ik ken niemand die Ad heet.',
-                a4: ''
-            },
-            set2: {
-                q1: '',
-                a1: '',
-                a2: '',
-                a3: '',
-                a4: ''
-            },
-            set3: {
-                q1: '',
-                a1: '',
-                a2: '',
-                a3: '',
-                a4: ''
+            this.dialogue = {
+                set1: {
+                    q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
+                    a1: 'A) Waarschijnlijk niet',
+                    a2: 'B) Zou je me kunnen vertellen waarvan?',
+                    a3: 'C) Ik ken niemand die Ad heet.',
+                    a4: '',
+                    currentSet: 1
+                },
+                set2: {
+                    q1: 'Ik ken je van school',
+                    a1: 'A) Waarschijnlijk niet',
+                    a2: 'B) Op welke school zit ik dan?',
+                    a3: 'C) Dat zou goed kunnen',
+                    a4: 'D) "Ik heb die naam echt nog nooit gehoord',
+                    currentSet: 2
+                },
+                set3: {
+                    q1: '',
+                    a1: '',
+                    a2: '',
+                    a3: '',
+                    a4: '',
+                    currentSet: 3
+                }
             }
-        }
 
-        this.questionInfo = {
-            xPos: 1075,
-            yPos: 60
-        }
-
-        this.answerInfo = {
-            A: {
-                xPos: 44,
-                yPos: 641
-            },
-            B: {
-                xPos: 44,
-                yPos: 885
-            },
-            C: {
-                xPos: 1010,
-                yPos: 641
-            },
-            D: {
-                xPos: 1010,
-                yPos: 885
+            this.questionInfo = {
+                xPos: 1075,
+                yPos: 60
             }
-        };
 
-        this.array = [];
-        this.frameCounter = 0;
-        this.adDialogue = this.dialogue.set1.q1
-        this.joined = ""
+            this.answerInfo = {
+                A: {
+                    xPos: 44,
+                    yPos: 641
+                },
+                B: {
+                    xPos: 44,
+                    yPos: 885
+                },
+                C: {
+                    xPos: 1010,
+                    yPos: 641
+                },
+                D: {
+                    xPos: 1010,
+                    yPos: 885
+                }
+            };
+
+            this.array = [];
+            this.frameCounter = 0;
+            this.adDialogue = this.dialogue.set1.q1
+            this.joined = ""
 
 
-        // allows methods to check which screen the game is on
-        this.currentScreen = "titleScreen";
+            // allows methods to check which screen the game is on
+            this.currentScreen = "titleScreen";
 
-        // allows you to write screens to the canvas
-        this.titleScreen();
-        // this.levelScreen();
-        // this.loop();
-    }
+            // allows you to write screens to the canvas
+            this.titleScreen();
+            // this.levelScreen();
+            // this.loop();
+        }
 
     public loop = () => {
         // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -129,18 +132,26 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('A');
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('B');
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
         };
         //hitbox of choiceBox 3
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             console.log('C');
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
         };
         //hitbox of choiceBox 4
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             console.log('D');
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
         };
 
         //hitbox of button

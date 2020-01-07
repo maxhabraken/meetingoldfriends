@@ -12,18 +12,26 @@ class Game {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('A');
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.levelScreen();
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('B');
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.levelScreen();
             }
             ;
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 console.log('C');
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.levelScreen();
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 console.log('D');
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.levelScreen();
             }
             ;
             if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
@@ -42,21 +50,24 @@ class Game {
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
-                a4: ''
+                a4: '',
+                currentSet: 1
             },
             set2: {
-                q1: '',
-                a1: '',
-                a2: '',
-                a3: '',
-                a4: ''
+                q1: 'Ik ken je van school',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Op welke school zit ik dan?',
+                a3: 'C) Dat zou goed kunnen',
+                a4: 'D) "Ik heb die naam echt nog nooit gehoord',
+                currentSet: 2
             },
             set3: {
                 q1: '',
                 a1: '',
                 a2: '',
                 a3: '',
-                a4: ''
+                a4: '',
+                currentSet: 3
             }
         };
         this.questionInfo = {
