@@ -43,6 +43,20 @@ class Game {
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
                 a4: ''
+            },
+            set2: {
+                q1: '',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: ''
+            },
+            set3: {
+                q1: '',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: ''
             }
         };
         this.questionInfo = {
