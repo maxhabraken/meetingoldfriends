@@ -4,7 +4,6 @@
 }
  
 canvas{
-    font-family: 'Undertale';
     background-image: url("../images/titleScreen.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,5 +11,6 @@ canvas{
 }
 
 html{
+    font-family: 'Undertale';
     overflow: hidden;
 }

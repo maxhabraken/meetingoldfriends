@@ -68,7 +68,7 @@ class Game {
             }
         };
         this.frameCounter = 0;
-        this.adDialogue = "ja";
+        this.adDialogue = "";
         this.joined = "";
         this.adDialogue = this.dialogue.set1.q1;
         this.currentScreen = "";
@@ -93,7 +93,10 @@ class Game {
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
         this.loop();
+<<<<<<< Updated upstream
         this.startStoryline();
+=======
+>>>>>>> Stashed changes
     }
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;

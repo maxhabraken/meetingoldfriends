@@ -60,7 +60,7 @@ class Game {
         };
 
         this.frameCounter = 0;
-        this.adDialogue = "ja"
+        this.adDialogue = ""
         this.joined = ""
         this.adDialogue = this.dialogue.set1.q1;
 
@@ -69,6 +69,10 @@ class Game {
 
         // allows you to write screens to the canvas
         this.titleScreen();
+<<<<<<< Updated upstream
+=======
+        // this.levelScreen();
+>>>>>>> Stashed changes
     }
 
     public loop = () => {
@@ -126,25 +130,11 @@ class Game {
 
         this.currentScreen = "levelScreen";
         this.loop();
+<<<<<<< Updated upstream
         this.startStoryline();
+=======
+>>>>>>> Stashed changes
     }
-
-    // private switchScreen() {
-    //     // If the current screen is an instance of the StartScreen class
-    //     if (
-    //         this.currentScreen instanceof TitleScreen
-    //         && this.mouseHandler(this.mouseHandler)
-    //     ) {
-    //         this.currentScreen = new LevelScreen(this.canvas, this.ctx, this.keyboardListener);
-    //     }
-
-    //     if (
-    //         this.currentScreen instanceof LevelScreen
-    //         && this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)
-    //     ) {
-    //         this.currentScreen = new TitleScreen(this.canvas, this.ctx);
-    //     }
-    // }
 
     private mouseHandler = (event: MouseEvent) => {
         //logs the coordinates of the position where the screen is clicked
