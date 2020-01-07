@@ -21,7 +21,7 @@ class Game {
 
         this.dialogue = {
             set1: {
-                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
+                q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
@@ -77,13 +77,8 @@ class Game {
 
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToCanvas(this.joined, 30, this.questionInfo.xPos, this.questionInfo.yPos, 'start', "rgb(69,66,63)");
+            this.writeTextToSpeechBubble();
         }
-
-        // if (this.joined.length == 38) { this.dialogueY += 20 }
-
-
-
 
         this.frameCounter++;
     }
@@ -179,6 +174,19 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
+    }
+
+    public writeTextToSpeechBubble() {
+        let lineheight = 40; //the height of a line for the sentence
+
+        // use \n as a delimiter (you can choose any delimter), the split function uses this delimiter to cut the string into two strings
+        // lines is an array with all the strings
+        let lines = this.joined.split('\n');
+
+        // loop over all the strings and write each string a number of lineheights under eacht oter 
+        for (let i = 0; i < lines.length; i++) {
+            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
+        }
     }
 
     /**

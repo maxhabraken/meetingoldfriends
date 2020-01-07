@@ -4,7 +4,7 @@ class Game {
             requestAnimationFrame(this.loop);
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
-                this.writeTextToCanvas(this.joined, 30, this.questionInfo.xPos, this.questionInfo.yPos, 'start', "rgb(69,66,63)");
+                this.writeTextToSpeechBubble();
             }
             this.frameCounter++;
         };
@@ -38,7 +38,7 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
             set1: {
-                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
+                q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
@@ -118,6 +118,13 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
+    }
+    writeTextToSpeechBubble() {
+        let lineheight = 40;
+        let lines = this.joined.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
+        }
     }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Undertale`;
