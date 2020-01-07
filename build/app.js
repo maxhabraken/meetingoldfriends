@@ -4,15 +4,9 @@ class Game {
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
                 this.writeTextToCanvas(this.joined, 30, 1075, 60, 'start', "rgb(69,66,63)");
-                requestAnimationFrame(this.loop);
-                if (this.frameCounter < this.adDialogue.length) {
-                    this.joined += (this.adDialogue[this.frameCounter]);
-                }
-                this.writeTextToSpeechBubble();
-                requestAnimationFrame(this.loop);
-                this.frameCounter++;
-                console.log(this.frameCounter);
             }
+            requestAnimationFrame(this.loop);
+            this.frameCounter++;
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
@@ -44,7 +38,7 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
             set1: {
-                q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
+                q1: 'Die naam komt me bekend voor',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
@@ -99,6 +93,10 @@ class Game {
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
         this.loop();
+<<<<<<< Updated upstream
+        this.startStoryline();
+=======
+>>>>>>> Stashed changes
     }
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;
@@ -129,13 +127,6 @@ class Game {
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
     }
-    writeTextToSpeechBubble() {
-        let lineheight = 30;
-        let lines = this.joined.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-            this.ctx.fillText(lines[i], this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight));
-        }
-    }
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Undertale`;
         this.ctx.fillStyle = color;
@@ -151,7 +142,7 @@ class Game {
     }
 }
 let init = function () {
-    const meetingoldfriends = new Game(document.getElementById("canvas"));
+    const meetingnewfriends = new Game(document.getElementById("canvas"));
 };
 window.addEventListener("load", init);
 //# sourceMappingURL=app.js.map
