@@ -12,6 +12,7 @@ class Game {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('A');
+                this.currentSetNumber++;
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.levelScreen();
             }
@@ -44,14 +45,15 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
+        this.currentSetNumber = 1;
+        this.currentSet = `set${this.currentSetNumber}`;
         this.dialogue = {
             set1: {
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
-                a4: '',
-                currentSet: 1
+                a4: ''
             },
             set2: {
                 q1: 'Ik ken je van school',
@@ -59,15 +61,13 @@ class Game {
                 a2: 'B) Op welke school zit ik dan?',
                 a3: 'C) Dat zou goed kunnen',
                 a4: 'D) "Ik heb die naam echt nog nooit gehoord',
-                currentSet: 2
             },
             set3: {
                 q1: '',
                 a1: '',
                 a2: '',
                 a3: '',
-                a4: '',
-                currentSet: 3
+                a4: ''
             }
         };
         this.questionInfo = {
