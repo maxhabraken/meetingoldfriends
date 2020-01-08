@@ -5,42 +5,45 @@ class Game {
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
             }
+            ;
             this.writeTextToSpeechBubble();
             this.frameCounter++;
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
-                console.log('A');
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.levelScreen();
-                this.currentSetNumber++;
-                this.frameCounter = 0;
-                this.currentSet = 'set' + this.currentSetNumber;
-                this.joined = '';
-                this.adDialogue = this.dialogue[this.currentSet].q1;
-                this.loadAnswers();
+                if (this.dialogue[this.currentSet].a1 != '') {
+                    this.progressDialogue();
+                }
+                ;
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
-                console.log('B');
-                this.currentSetNumber++;
+                if (this.dialogue[this.currentSet].a2 != '') {
+                    this.progressDialogue();
+                }
+                ;
             }
             ;
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
-                console.log('C');
-                this.currentSetNumber++;
+                if (this.dialogue[this.currentSet].a3 != '') {
+                    this.progressDialogue();
+                }
+                ;
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
-                console.log('D');
-                this.currentSetNumber++;
+                if (this.dialogue[this.currentSet].a4 != '') {
+                    this.progressDialogue();
+                }
+                ;
             }
             ;
             if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.levelScreen();
             }
+            ;
         };
         this.canvas = canvasId;
         this.canvas.width = window.innerWidth;
@@ -49,25 +52,74 @@ class Game {
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
             set1: {
+                q1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
+                a1: 'A) Met mij gaat alles goed, met jou?',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set2: {
+                q1: 'Hoe heet je?',
+                a1: 'A) Mijn naam is ...',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set3: {
+                q1: 'Aangenaam kennis te maken',
+                a1: '...',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set4: {
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
                 a4: ''
             },
-            set2: {
+            set5: {
                 q1: 'Ik ken je van school',
-                a1: 'A) Waarschijnlijk niet',
-                a2: 'B) Op welke school zit ik dan?',
-                a3: 'C) Dat zou goed kunnen',
-                a4: 'D) "Ik heb die naam echt nog nooit gehoord',
+                a1: 'A) Op welke school zit ik dan?',
+                a2: 'B) Ik heb die naam echt nog nooit gehoord',
+                a3: 'C) Zou goed kunnen',
+                a4: ''
             },
-            set3: {
-                q1: '123123',
-                a1: '12321',
+            set6: {
+                q1: 'Jij zit toch op de regenboog?',
+                a1: 'A) Hoe ben je daar achter gekomen?',
+                a2: 'B) Dat Klopt',
+                a3: '',
+                a4: '',
+            },
+            set7: {
+                q1: 'Dat hoorde ik van een vriend van je',
+                a1: '...',
                 a2: '',
                 a3: '',
-                a4: ''
+                a4: '',
+            },
+            set8: {
+                q1: 'Wat doe je graag in je vrije tijd?',
+                a1: 'A) Tekenen',
+                a2: 'B) Sporten',
+                a3: 'C) Gamen',
+                a4: 'D) Koken',
+            },
+            set9: {
+                q1: 'Oh leuk daar hou ik ook van!',
+                a1: '...',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set10: {
+                q1: 'Daar ben je vast heel goed in',
+                a1: '...',
+                a2: '',
+                a3: '',
+                a4: '',
             },
         };
         this.currentSetNumber = 1;
@@ -83,12 +135,12 @@ class Game {
                 yPos: 641
             },
             B: {
-                xPos: 44,
-                yPos: 885
-            },
-            C: {
                 xPos: 1010,
                 yPos: 641
+            },
+            C: {
+                xPos: 44,
+                yPos: 885
             },
             D: {
                 xPos: 1010,
@@ -100,8 +152,9 @@ class Game {
         this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
         this.currentScreen = "titleScreen";
-        this.levelScreen();
+        this.titleScreen();
     }
+    ;
     titleScreen() {
         const Button = "./assets/images/button.png";
         this.loadImage(Button, this.writeButtonToStartScreen);
@@ -109,6 +162,7 @@ class Game {
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
         this.currentScreen = "titleScreen";
     }
+    ;
     levelScreen() {
         const characterImage = "./assets/images/miniAd2.png";
         this.loadImage(characterImage, this.characterPosition);
@@ -119,47 +173,67 @@ class Game {
         this.currentScreen = "levelScreen";
         this.loop();
     }
+    ;
+    progressDialogue() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.levelScreen();
+        this.currentSetNumber++;
+        this.frameCounter = 0;
+        this.currentSet = 'set' + this.currentSetNumber;
+        this.joined = '';
+        this.adDialogue = this.dialogue[this.currentSet].q1;
+        this.loadAnswers();
+    }
+    ;
     choiceBoxPosition(img) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x - img.width / 2, y - 540);
         this.loadAnswers();
     }
+    ;
     loadAnswers() {
         this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
     }
+    ;
     writeButtonToStartScreen(img) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height - 1000;
         this.ctx.drawImage(img, x - img.width / 2, y);
         this.writeTextToCanvas("Play", 70, x, y + 550, "center", "rgb(69,66,63)");
     }
+    ;
     characterPosition(img) {
         const x = this.canvas.width / 2 - 100;
         const y = this.canvas.height / 2 - 768;
         this.ctx.drawImage(img, (x - img.width / 2), y);
     }
+    ;
     speechBubblePosition(img) {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
     }
+    ;
     writeTextToSpeechBubble() {
         let lineheight = 40;
         let lines = this.joined.split('\n');
         for (let i = 0; i < lines.length; i++) {
             this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
         }
+        ;
     }
+    ;
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {
         this.ctx.font = `${fontSize}px Undertale`;
         this.ctx.fillStyle = color;
         this.ctx.textAlign = alignment;
         this.ctx.fillText(text, xCoordinate, yCoordinate);
     }
+    ;
     loadImage(source, callback) {
         const imageElement = new Image();
         imageElement.addEventListener("load", () => {
@@ -167,7 +241,9 @@ class Game {
         });
         imageElement.src = source;
     }
+    ;
 }
+;
 let init = function () {
     const meetingnewfriends = new Game(document.getElementById("canvas"));
 };
