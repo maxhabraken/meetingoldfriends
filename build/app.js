@@ -4,35 +4,37 @@ class Game {
             requestAnimationFrame(this.loop);
             if (this.frameCounter < this.adDialogue.length) {
                 this.joined += (this.adDialogue[this.frameCounter]);
-                this.writeTextToSpeechBubble();
             }
+            this.writeTextToSpeechBubble();
             this.frameCounter++;
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('A');
-                this.currentSetNumber++;
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.levelScreen();
+                this.currentSetNumber++;
+                this.frameCounter = 0;
+                this.currentSet = 'set' + this.currentSetNumber;
+                this.joined = '';
+                this.adDialogue = this.dialogue[this.currentSet].q1;
+                this.loadAnswers();
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 console.log('B');
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.levelScreen();
+                this.currentSetNumber++;
             }
             ;
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 console.log('C');
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.levelScreen();
+                this.currentSetNumber++;
             }
             ;
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 console.log('D');
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.levelScreen();
+                this.currentSetNumber++;
             }
             ;
             if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
@@ -45,8 +47,6 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
-        this.currentSetNumber = 1;
-        this.currentSet = `set${this.currentSetNumber}`;
         this.dialogue = {
             set1: {
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
@@ -63,13 +63,16 @@ class Game {
                 a4: 'D) "Ik heb die naam echt nog nooit gehoord',
             },
             set3: {
-                q1: '',
-                a1: '',
+                q1: '123123',
+                a1: '12321',
                 a2: '',
                 a3: '',
                 a4: ''
-            }
+            },
         };
+        this.currentSetNumber = 1;
+        this.currentSet = 'set' + this.currentSetNumber.toString();
+        console.log(this.dialogue[this.currentSet].q1);
         this.questionInfo = {
             xPos: 1075,
             yPos: 60
@@ -97,7 +100,7 @@ class Game {
         this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
         this.currentScreen = "titleScreen";
-        this.titleScreen();
+        this.levelScreen();
     }
     titleScreen() {
         const Button = "./assets/images/button.png";
@@ -123,10 +126,10 @@ class Game {
         this.loadAnswers();
     }
     loadAnswers() {
-        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
-        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
-        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
-        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
     }
     writeButtonToStartScreen(img) {
         const x = this.canvas.width / 2;

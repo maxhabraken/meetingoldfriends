@@ -21,9 +21,7 @@ class Game {
             this.ctx = this.canvas.getContext("2d");
             document.addEventListener("click", this.mouseHandler);
 
-            this.currentSetNumber = 1;
-            this.currentSet = `set${this.currentSetNumber}`;
-
+      
             this.dialogue = {
                 set1: {
                     q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
@@ -40,13 +38,20 @@ class Game {
                     a4: 'D) "Ik heb die naam echt nog nooit gehoord',
                 },
                 set3: {
-                    q1: '',
-                    a1: '',
+                    q1: '123123',
+                    a1: '12321',
                     a2: '',
                     a3: '',
                     a4: ''
-                }
+                },
             }
+
+            this.currentSetNumber = 1;
+            this.currentSet = 'set'+this.currentSetNumber.toString();
+
+            console.log(this.dialogue[this.currentSet].q1)
+            
+    
 
             this.questionInfo = {
                 xPos: 1075,
@@ -82,24 +87,21 @@ class Game {
             this.currentScreen = "titleScreen";
 
             // allows you to write screens to the canvas
-            this.titleScreen();
-            // this.levelScreen();
+            // this.titleScreen();
+            this.levelScreen();
             // this.loop();
         }
 
     public loop = () => {
-        // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-
-        //x1689 , y50
         requestAnimationFrame(this.loop);
 
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter])
-            this.writeTextToSpeechBubble();
-        }
 
+        }
+        this.writeTextToSpeechBubble();
         this.frameCounter++;
+        
     }
 
     //draws startscreen
@@ -123,7 +125,7 @@ class Game {
         this.loadImage(speechBubble, this.speechBubblePosition);
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
-
+    
         this.currentScreen = "levelScreen";
         this.loop();
     }
@@ -134,27 +136,33 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('A');
+
+            this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
+            this.levelScreen()
             this.currentSetNumber++;
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.levelScreen();
+
+            this.frameCounter = 0
+            this.currentSet = 'set'+this.currentSetNumber;
+            this.joined=''
+            this.adDialogue = this.dialogue[this.currentSet].q1;
+            this.loadAnswers()
+
+    
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             console.log('B');
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.levelScreen();
+            this.currentSetNumber++;
         };
         //hitbox of choiceBox 3
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             console.log('C');
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.levelScreen();
+            this.currentSetNumber++;
         };
         //hitbox of choiceBox 4
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             console.log('D');
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.levelScreen();
+            this.currentSetNumber++;
         };
 
         //hitbox of button
@@ -176,13 +184,13 @@ class Game {
 
     private loadAnswers() {
         // write the first answer to the choiceBox
-        this.writeTextToCanvas(this.dialogue.set1.a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
         // write the seconds answer to the choiceBox
-        this.writeTextToCanvas(this.dialogue.set1.a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
         // write the third answer to the choiceBox
-        this.writeTextToCanvas(this.dialogue.set1.a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
         // write the fourth answer to the choiceBox
-        this.writeTextToCanvas(this.dialogue.set1.a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSet].a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
     }
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
