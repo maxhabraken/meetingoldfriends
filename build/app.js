@@ -14,6 +14,7 @@ class Game {
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a1 != '') {
                     this.progressDialogue();
+                    this.score += this.dialogue[this.currentSet].score1;
                 }
                 ;
             }
@@ -21,6 +22,7 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a2 != '') {
                     this.progressDialogue();
+                    this.score += this.dialogue[this.currentSet].score2;
                 }
                 ;
             }
@@ -28,6 +30,7 @@ class Game {
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a3 != '') {
                     this.progressDialogue();
+                    this.score += this.dialogue[this.currentSet].score3;
                 }
                 ;
             }
@@ -35,6 +38,7 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a4 != '') {
                     this.progressDialogue();
+                    this.score += this.dialogue[this.currentSet].score4;
                 }
                 ;
             }
@@ -54,6 +58,7 @@ class Game {
             set1: {
                 q1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
                 a1: 'A) Met mij gaat alles goed, met jou?',
+                score1: '',
                 a2: '',
                 a3: '',
                 a4: '',
@@ -61,20 +66,26 @@ class Game {
             set2: {
                 q1: 'Hoe heet je?',
                 a1: 'A) Mijn naam is ...',
+                score1: '',
                 a2: '',
                 a3: '',
                 a4: '',
             },
             set3: {
                 q1: 'Aangenaam kennis te maken',
-                a1: '...',
-                a2: '',
-                a3: '',
-                a4: '',
+                a1: 'A) Vind ik ook',
+                score1: '0',
+                a2: 'B) Insgelijks ',
+                score2: '0',
+                a3: 'C) Dank je',
+                score3: '0',
+                a4: 'D) Ja',
+                score4: '0',
             },
             set4: {
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
+                score1: '',
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
                 a3: 'C) Ik ken niemand die Ad heet.',
                 a4: ''
@@ -82,6 +93,7 @@ class Game {
             set5: {
                 q1: 'Ik ken je van school',
                 a1: 'A) Op welke school zit ik dan?',
+                score1: '',
                 a2: 'B) Ik heb die naam echt nog nooit gehoord',
                 a3: 'C) Zou goed kunnen',
                 a4: ''
@@ -89,13 +101,15 @@ class Game {
             set6: {
                 q1: 'Jij zit toch op de regenboog?',
                 a1: 'A) Hoe ben je daar achter gekomen?',
+                score1: '',
                 a2: 'B) Dat Klopt',
                 a3: '',
                 a4: '',
             },
             set7: {
                 q1: 'Dat hoorde ik van een vriend van je',
-                a1: '...',
+                a1: 'A) Dat kan best',
+                score1: '0',
                 a2: '',
                 a3: '',
                 a4: '',
@@ -103,28 +117,31 @@ class Game {
             set8: {
                 q1: 'Wat doe je graag in je vrije tijd?',
                 a1: 'A) Tekenen',
+                score1: '',
                 a2: 'B) Sporten',
                 a3: 'C) Gamen',
                 a4: 'D) Koken',
             },
             set9: {
                 q1: 'Oh leuk daar hou ik ook van!',
-                a1: '...',
+                a1: 'A) Top',
+                score1: '0',
                 a2: '',
                 a3: '',
                 a4: '',
             },
             set10: {
                 q1: 'Daar ben je vast heel goed in',
-                a1: '...',
+                a1: 'A) Zeker weten',
+                score1: '0',
                 a2: '',
                 a3: '',
                 a4: '',
             },
         };
+        this.score = 0;
         this.currentSetNumber = 1;
         this.currentSet = 'set' + this.currentSetNumber.toString();
-        console.log(this.dialogue[this.currentSet].q1);
         this.questionInfo = {
             xPos: 1075,
             yPos: 60
