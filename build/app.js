@@ -41,56 +41,70 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         document.addEventListener("click", this.mouseHandler);
         this.dialogue = {
-            introductieSet: {
-                dialogueAd1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
-                dialoguePlayer1: 'Met mij gaat alles goed, met jou?',
-                dialogueAd2: 'Hoe heet je?',
-                dialoguePlayer2: 'Mijn naam is ...',
-                dialogueAd3: 'Aangenaam kennis te maken',
+            Set1: {
+                q1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
+                a1: 'Met mij gaat alles goed, met jou?',
+                a2: '',
+                a3: '',
+                a4: '',
             },
-            set0: {
-                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
-                a1: 'A) Waarschijnlijk niet',
-                a2: 'B) Zou je me kunnen vertellen waarvan?',
-                a3: 'C) Ik ken niemand die Ad heet.',
-                a4: ''
-            },
-            set1: {
-                q1: 'Ik ken je van school',
-                a1: 'Op welke school zit ik dan?',
-                a2: 'Ik heb die naam echt nog nooit gehoord',
-                a3: 'Zou goed kunnen',
-                a4: ''
-            },
-            set2: {
-                q1: 'Jij zit toch op de regenboog?',
-                a1: 'Hoe ben je daar achter gekomen?',
-                a2: 'Dat Klopt',
+            Set2: {
+                q1: 'Hoe heet je?',
+                a1: 'Mijn naam is ...',
+                a2: '',
                 a3: '',
                 a4: '',
             },
             set3: {
-                q1: 'Dat hoorde ik van een vriend van je',
+                q1: 'Aangenaam kennis te maken',
                 a1: '',
                 a2: '',
                 a3: '',
                 a4: '',
             },
             set4: {
+                q1: 'Die naam komt me bekend voor, ken ik jou ergens van?',
+                a1: 'A) Waarschijnlijk niet',
+                a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a3: 'C) Ik ken niemand die Ad heet.',
+                a4: ''
+            },
+            set5: {
+                q1: 'Ik ken je van school',
+                a1: 'Op welke school zit ik dan?',
+                a2: 'Ik heb die naam echt nog nooit gehoord',
+                a3: 'Zou goed kunnen',
+                a4: ''
+            },
+            set6: {
+                q1: 'Jij zit toch op de regenboog?',
+                a1: 'Hoe ben je daar achter gekomen?',
+                a2: 'Dat Klopt',
+                a3: '',
+                a4: '',
+            },
+            set7: {
+                q1: 'Dat hoorde ik van een vriend van je',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: '',
+            },
+            set8: {
                 q1: 'Wat doe je graag in je vrije tijd?',
                 a1: 'Tekenen',
                 a2: 'Sporten',
                 a3: 'Gamen',
                 a4: 'Koken',
             },
-            set5: {
+            set9: {
                 q1: 'Oh leuk daar hou ik ook van!',
                 a1: '',
                 a2: '',
                 a3: '',
                 a4: '',
             },
-            set6: {
+            set10: {
                 q1: 'Daar ben je vast heel goed in',
                 a1: '',
                 a2: '',
