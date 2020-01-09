@@ -289,8 +289,8 @@ class Game {
         let lines = this.joined.split('\n');
         for (let i = 0; i < lines.length; i++) {
             this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
-            if (this.frameCounter % 2 == 1) {
-                const characterImageOpenMouth = "./assets/images/miniAd2OpenMouth.png";
+            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
+                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png";
                 this.loadImage(characterImageOpenMouth, this.characterPosition);
             }
             else {

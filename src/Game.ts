@@ -12,7 +12,7 @@ class Game {
     public setId: number;
     public currentSet: string;
     public score: number;
-  
+
 
 
     public constructor(canvasId: HTMLCanvasElement) {
@@ -33,7 +33,7 @@ class Game {
                 a1: 'A) Met mij gaat alles goed, met jou?',
                 a1id: 2,
                 a2: '',
-                a3: '',  
+                a3: '',
                 a4: '',
             },
             set2: {
@@ -46,7 +46,7 @@ class Game {
                 a4: '',
             },
             set3: {
-                id:3,
+                id: 3,
                 q1: 'Aangenaam kennis te maken',
                 a1: 'A) Vind ik ook',
                 a1Score: 0,
@@ -62,7 +62,7 @@ class Game {
                 a4id: 4
             },
             set4: {
-                id:4,
+                id: 4,
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a1Score: 0,
@@ -76,7 +76,7 @@ class Game {
                 a4: ''
             },
             set5: {
-                index:5,
+                index: 5,
                 q1: 'Ik ken je van school',
                 a1: 'A) Op welke school zit ik dan?',
                 a1Score: 0,
@@ -153,7 +153,7 @@ class Game {
                 a4: '',
             },
         };
-        
+
         this.score = 0;
 
         this.setId = 1;
@@ -205,9 +205,9 @@ class Game {
             this.joined += (this.adDialogue[this.frameCounter])
 
         };
+
         this.writeTextToSpeechBubble();
         this.frameCounter++;
-
     };
 
     //draws startscreen
@@ -348,8 +348,8 @@ class Game {
         for (let i = 0; i < lines.length; i++) {
             this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
 
-            if(this.frameCounter % 2 == 1) {
-                const characterImageOpenMouth = "./assets/images/miniAd2OpenMouth.png"
+            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
+                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png"
                 this.loadImage(characterImageOpenMouth, this.characterPosition);
             } else {
                 const characterImage = "./assets/images/miniAd2.png";
