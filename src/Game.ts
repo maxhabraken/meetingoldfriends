@@ -9,10 +9,10 @@ class Game {
     public dialogue: any;
     public answerInfo: any;
     public questionInfo: any;
-    public currentSetNumber: number;
+    public setId: number;
     public currentSet: string;
     public score: number;
-    public setIndex: number;
+  
 
 
     public constructor(canvasId: HTMLCanvasElement) {
@@ -41,23 +41,23 @@ class Game {
                 a4: '',
             },
             set3: {
-                index:null,
+                id:3,
                 q1: 'Aangenaam kennis te maken',
                 a1: 'A) Vind ik ook',
                 a1Score: 0,
-                a1Index: 10,
+                a1Index: 4,
                 a2: 'B) Insgelijks ',
                 a2Score: 0,
-                a2Index: 10,
+                a2Index: 5,
                 a3: 'C) Dank je',
                 a3Score: 0,
-                a3Index: 10,
+                a3Index: 20,
                 a4: 'D) Ja',
                 a4Score: 0,
-                a4Index: 10,
+                a4Index: 30,
             },
             set4: {
-                index:null,
+                id:4,
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
                 a1Score: 0,
@@ -71,7 +71,7 @@ class Game {
                 a4: ''
             },
             set5: {
-                index:null,
+                index:5,
                 q1: 'Ik ken je van school',
                 a1: 'A) Op welke school zit ik dan?',
                 a1Score: 0,
@@ -142,8 +142,8 @@ class Game {
         
         this.score = 0;
 
-        this.currentSetNumber = 1;
-        this.currentSet = 'set' + this.currentSetNumber.toString();
+        this.setId = 1;
+        this.currentSet = 'set' + this.setId.toString();
 
         this.questionInfo = {
             xPos: 1075,
@@ -225,9 +225,8 @@ class Game {
     public progressDialogue() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.levelScreen();
-        this.currentSetNumber++;
         this.frameCounter = 0;
-        this.currentSet = 'set' + this.currentSetNumber;
+        this.currentSet = 'set' + this.setId;
         this.joined = '';
         this.adDialogue = this.dialogue[this.currentSet].q1;
         this.loadAnswers();
@@ -284,7 +283,7 @@ class Game {
 
     private loadAnswers() {
         // write the first answer to the choiceBox
-        this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
+        this.writeTextToCanvas(this.dialogue[this.currentSetId].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
         // write the seconds answer to the choiceBox
         this.writeTextToCanvas(this.dialogue[this.currentSet].a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
         // write the third answer to the choiceBox
