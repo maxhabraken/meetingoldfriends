@@ -5,13 +5,15 @@ class Game {
     public array: string[];
     public adDialogue: string;
     public joined: string;
-    public currentScreen: any;
+    public currentScreen: string;
     public dialogue: any;
     public answerInfo: any;
     public questionInfo: any;
     public currentSetNumber: number;
     public currentSet: string;
     public score: number;
+    public setIndex: number;
+
 
     public constructor(canvasId: HTMLCanvasElement) {
         // Construct all of the canvas
@@ -28,58 +30,76 @@ class Game {
             set1: {
                 q1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
                 a1: 'A) Met mij gaat alles goed, met jou?',
-                score1: '', 
-                a2: '',
                 a3: '',  
                 a4: '',
             },
             set2: {
                 q1: 'Hoe heet je?',
                 a1: 'A) Mijn naam is ...',
-                score1: '',
                 a2: '',
                 a3: '',
                 a4: '',
             },
             set3: {
+                index:null,
                 q1: 'Aangenaam kennis te maken',
                 a1: 'A) Vind ik ook',
-                score1: '0',
+                a1Score: 0,
+                a1Index: 10,
                 a2: 'B) Insgelijks ',
-                score2: '0',
+                a2Score: 0,
+                a2Index: 10,
                 a3: 'C) Dank je',
-                score3: '0',
+                a3Score: 0,
+                a3Index: 10,
                 a4: 'D) Ja',
-                score4: '0',
+                a4Score: 0,
+                a4Index: 10,
             },
             set4: {
+                index:null,
                 q1: 'Die naam komt me bekend voor, \nken ik jou ergens van?',
                 a1: 'A) Waarschijnlijk niet',
-                score1: '',
+                a1Score: 0,
+                a1Index: 10,
                 a2: 'B) Zou je me kunnen vertellen waarvan?',
+                a2Score: 0,
+                a2Index: 10,
                 a3: 'C) Ik ken niemand die Ad heet.',
+                a3Score: 0,
+                a3Index: 10,
                 a4: ''
             },
             set5: {
+                index:null,
                 q1: 'Ik ken je van school',
                 a1: 'A) Op welke school zit ik dan?',
-                score1: '',
+                a1Score: 0,
+                a1Index: 10,
                 a2: 'B) Ik heb die naam echt nog nooit gehoord',
+                a2Score: 0,
+                a2Index: 10,
                 a3: 'C) Zou goed kunnen',
+                a3Score: 0,
+                a3Index: 10,
                 a4: ''
             },
             set6: {
                 q1: 'Jij zit toch op de regenboog?',
                 a1: 'A) Hoe ben je daar achter gekomen?',
-                score1: '',
+                a1Score: 0,
+                a1Index: 10,
                 a2: 'B) Dat Klopt',
+                a2Score: 0,
+                a2Index: 10,
                 a3: '',
                 a4: '',
             },
             set7: {
                 q1: 'Dat hoorde ik van een vriend van je',
                 a1: 'A) Dat kan best',
-                score1: '0',
+                a1Score: 0,
+                a1Index: 10,
                 a2: '',
                 a3: '',
                 a4: '',
@@ -87,15 +107,23 @@ class Game {
             set8: {
                 q1: 'Wat doe je graag in je vrije tijd?',
                 a1: 'A) Tekenen',
-                score1: '',
+                a1Score: 0,
+                a1Index: 10,
                 a2: 'B) Sporten',
+                a2Score: 0,
+                a2Index: 10,
                 a3: 'C) Gamen',
+                a3Score: 0,
+                a3Index: 10,
                 a4: 'D) Koken',
+                a4Score: 0,
+                a4Index: 10,
             },
             set9: {
                 q1: 'Oh leuk daar hou ik ook van!',
                 a1: 'A) Top',
-                score1: '0',
+                a1Score: 0,
+                a1Index: 10,
                 a2: '',
                 a3: '',
                 a4: '',
@@ -103,6 +131,8 @@ class Game {
             set10: {
                 q1: 'Daar ben je vast heel goed in',
                 a1: 'A) Zeker weten',
+                a1Score: 0,
+                a1Index: 10,
                 score1: '0',
                 a2: '',
                 a3: '',
