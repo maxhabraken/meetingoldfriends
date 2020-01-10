@@ -2,10 +2,6 @@ class Game {
     constructor(canvasId) {
         this.loop = () => {
             requestAnimationFrame(this.loop);
-            if (this.frameCounter < this.adDialogue.length) {
-                this.joined += (this.adDialogue[this.frameCounter]);
-            }
-            ;
             this.writeTextToSpeechBubble();
             this.frameCounter++;
         };
@@ -14,9 +10,8 @@ class Game {
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a1 != '') {
                     this.setId = this.dialogue[this.currentSet].a1id;
-                    console.log(this.setId);
-                    this.progressDialogue();
                     this.score += this.dialogue[this.currentSet].score1;
+                    this.progressDialogue();
                 }
                 ;
             }
@@ -24,9 +19,8 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a2 != '') {
                     this.setId = this.dialogue[this.currentSet].a2id;
-                    console.log(this.setId);
-                    this.progressDialogue();
                     this.score += this.dialogue[this.currentSet].score2;
+                    this.progressDialogue();
                 }
                 ;
             }
@@ -34,9 +28,8 @@ class Game {
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a3 != '') {
                     this.setId = this.dialogue[this.currentSet].a3id;
-                    console.log(this.setId);
-                    this.progressDialogue();
                     this.score += this.dialogue[this.currentSet].score3;
+                    this.progressDialogue();
                 }
                 ;
             }
@@ -44,9 +37,8 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a4 != '') {
                     this.setId = this.dialogue[this.currentSet].a4id;
-                    console.log(this.setId);
-                    this.progressDialogue();
                     this.score += this.dialogue[this.currentSet].score4;
+                    this.progressDialogue();
                 }
                 ;
             }
@@ -219,7 +211,28 @@ class Game {
         this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
         this.currentScreen = "titleScreen";
-        this.titleScreen();
+        this.levelScreen();
+    }
+    ;
+    writeTextToSpeechBubble() {
+        if (this.frameCounter < this.adDialogue.length) {
+            this.joined += (this.adDialogue[this.frameCounter]);
+        }
+        ;
+        let lineheight = 40;
+        let lines = this.joined.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
+            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
+                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png";
+                this.loadImage(characterImageOpenMouth, this.characterPosition);
+            }
+            else {
+                const characterImage = "./assets/images/miniAd2.png";
+                this.loadImage(characterImage, this.characterPosition);
+            }
+        }
+        ;
     }
     ;
     titleScreen() {
@@ -251,18 +264,18 @@ class Game {
         this.loadAnswers();
     }
     ;
-    choiceBoxPosition(img) {
-        const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2;
-        this.ctx.drawImage(img, x - img.width / 2, y - 540);
-        this.loadAnswers();
-    }
-    ;
     loadAnswers() {
         this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a2, 20, this.answerInfo.B.xPos, this.answerInfo.B.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
         this.writeTextToCanvas(this.dialogue[this.currentSet].a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
+    }
+    ;
+    choiceBoxPosition(img) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x - img.width / 2, y - 540);
+        this.loadAnswers();
     }
     ;
     writeButtonToStartScreen(img) {
@@ -282,23 +295,6 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
-    }
-    ;
-    writeTextToSpeechBubble() {
-        let lineheight = 40;
-        let lines = this.joined.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
-            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
-                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png";
-                this.loadImage(characterImageOpenMouth, this.characterPosition);
-            }
-            else {
-                const characterImage = "./assets/images/miniAd2.png";
-                this.loadImage(characterImage, this.characterPosition);
-            }
-        }
-        ;
     }
     ;
     writeTextToCanvas(text, fontSize = 20, xCoordinate, yCoordinate, alignment = "center", color = "white") {

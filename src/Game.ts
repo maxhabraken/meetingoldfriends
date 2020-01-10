@@ -155,7 +155,6 @@ class Game {
         };
 
         this.score = 0;
-
         this.setId = 1;
         this.currentSet = 'set' + this.setId.toString();
 
@@ -193,18 +192,40 @@ class Game {
         this.currentScreen = "titleScreen";
 
         // allows you to write screens to the canvas
-        this.titleScreen();
-        // this.levelScreen();
+        // this.titleScreen();
+        this.levelScreen();
         // this.loop();
     };
 
     public loop = () => {
         requestAnimationFrame(this.loop);
+        this.writeTextToSpeechBubble();
+        this.frameCounter++;
+    };
+    //animates the text in the speechbubble
+    public writeTextToSpeechBubble() {
         if (this.frameCounter < this.adDialogue.length) {
             this.joined += (this.adDialogue[this.frameCounter]);
         };
-        this.writeTextToSpeechBubble();
-        this.frameCounter++;
+
+        let lineheight = 40; //the height of a line for the sentence
+
+        // use \n as a delimiter (you can choose any delimter), the split function uses this delimiter to cut the string into two strings
+        // lines is an array with all the strings
+        let lines = this.joined.split('\n');
+
+        // loop over all the strings and write each string a number of lineheights under eacht oter 
+        for (let i = 0; i < lines.length; i++) {
+            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
+
+            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
+                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png"
+                this.loadImage(characterImageOpenMouth, this.characterPosition);
+            } else {
+                const characterImage = "./assets/images/miniAd2.png";
+                this.loadImage(characterImage, this.characterPosition);
+            }
+        };
     };
 
     //draws startscreen
@@ -215,7 +236,7 @@ class Game {
         //writes text to canvas
         this.writeTextToCanvas("Meeting old", 140, this.canvas.width / 2, 175);
         this.writeTextToCanvas("\"friends\"", 140, this.canvas.width / 2, 300);
-
+        //changes currentScreen to the correct screen
         this.currentScreen = "titleScreen";
     };
 
@@ -229,10 +250,11 @@ class Game {
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
+        //runs the loop that contains the animation for the scrolling text and the mouth movement
         this.loop();
     };
 
-    // verifies whether or not an answer in the choicebox is empty, if not the user can pick that answer and the story progresses.
+    //loads all the assets and text based on what the setnumber is
     public progressDialogue() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.levelScreen();
@@ -249,61 +271,43 @@ class Game {
         //hitbox of choiceBox 1
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             if (this.dialogue[this.currentSet].a1 != '') {
-
                 this.setId = this.dialogue[this.currentSet].a1id;
-                console.log(this.setId);
-                this.progressDialogue();
                 this.score += this.dialogue[this.currentSet].score1;
+                this.progressDialogue();
             };
         };
         //hitbox of choiceBox 2
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
             if (this.dialogue[this.currentSet].a2 != '') {
-
                 this.setId = this.dialogue[this.currentSet].a2id;
-                console.log(this.setId);
-                this.progressDialogue();
                 this.score += this.dialogue[this.currentSet].score2;
+                this.progressDialogue();
             };
         };
         //hitbox of choiceBox 3
         if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             if (this.dialogue[this.currentSet].a3 != '') {
-
                 this.setId = this.dialogue[this.currentSet].a3id;
-                console.log(this.setId);
-                this.progressDialogue();
                 this.score += this.dialogue[this.currentSet].score3;
+                this.progressDialogue();
             };
         };
         //hitbox of choiceBox 4
         if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
             if (this.dialogue[this.currentSet].a4 != '') {
-
                 this.setId = this.dialogue[this.currentSet].a4id;
-                console.log(this.setId);
-                this.progressDialogue();
                 this.score += this.dialogue[this.currentSet].score4;
+                this.progressDialogue();
             };
         };
-
-        //hitbox of button
+        //hitbox for startbutton in the titlescreen, draws the levelscreen once it is clicked
         if (event.clientX >= 674 && event.clientX < 1235 && event.clientY >= 562 && event.clientY <= 666 && this.currentScreen === "titleScreen") {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.levelScreen();
         };
     };
 
-
-
-    //decides the positions of all the elements on the canvas
-    private choiceBoxPosition(img: HTMLImageElement) {
-        const x = this.canvas.width / 2;
-        const y = this.canvas.height / 2;
-        this.ctx.drawImage(img, x - img.width / 2, y - 540);
-        this.loadAnswers();
-    };
-
+    //loads the correct answers based on the set number
     private loadAnswers() {
         // write the first answer to the choiceBox
         this.writeTextToCanvas(this.dialogue[this.currentSet].a1, 20, this.answerInfo.A.xPos, this.answerInfo.A.yPos, "start", "black");
@@ -313,6 +317,14 @@ class Game {
         this.writeTextToCanvas(this.dialogue[this.currentSet].a3, this.answerInfo.C.fontSize, this.answerInfo.C.xPos, this.answerInfo.C.yPos, "start", "black");
         // write the fourth answer to the choiceBox
         this.writeTextToCanvas(this.dialogue[this.currentSet].a4, 20, this.answerInfo.D.xPos, this.answerInfo.D.yPos, "start", "black");
+    };
+
+    //decides the positions of all the elements on the canvas
+    private choiceBoxPosition(img: HTMLImageElement) {
+        const x = this.canvas.width / 2;
+        const y = this.canvas.height / 2;
+        this.ctx.drawImage(img, x - img.width / 2, y - 540);
+        this.loadAnswers();
     };
 
     private writeButtonToStartScreen(img: HTMLImageElement) {
@@ -332,27 +344,6 @@ class Game {
         const x = this.canvas.width / 2;
         const y = this.canvas.height / 2;
         this.ctx.drawImage(img, x + 70, y - 533);
-    };
-
-    public writeTextToSpeechBubble() {
-        let lineheight = 40; //the height of a line for the sentence
-
-        // use \n as a delimiter (you can choose any delimter), the split function uses this delimiter to cut the string into two strings
-        // lines is an array with all the strings
-        let lines = this.joined.split('\n');
-
-        // loop over all the strings and write each string a number of lineheights under eacht oter 
-        for (let i = 0; i < lines.length; i++) {
-            this.writeTextToCanvas(lines[i], 30, this.questionInfo.xPos, this.questionInfo.yPos + (i * lineheight), 'start', "rgb(69,66,63)");
-
-            if (this.frameCounter > 0 && this.frameCounter < 10 || this.frameCounter > 20 && this.frameCounter < 30 || this.frameCounter > 40 && this.frameCounter < 50) {
-                const characterImageOpenMouth = "./assets/images/miniAd2Mouth.png"
-                this.loadImage(characterImageOpenMouth, this.characterPosition);
-            } else {
-                const characterImage = "./assets/images/miniAd2.png";
-                this.loadImage(characterImage, this.characterPosition);
-            }
-        };
     };
 
     /**
@@ -414,12 +405,10 @@ class Game {
     };
 };
 
-
 // This will get an HTML element. I cast this element in de appropriate type using <>
 let init = function () {
     const meetingnewfriends = new Game(document.getElementById("canvas") as HTMLCanvasElement);
 };
-
 
 // Add EventListener to load the game whenever the browser is ready
 window.addEventListener("load", init);
