@@ -1,16 +1,18 @@
 class Game {
     constructor(canvasId) {
         this.loop = () => {
-            requestAnimationFrame(this.loop);
-            this.writeTextToSpeechBubble();
-            this.frameCounter++;
+            if (this.currentScreen == 'levelScreen') {
+                requestAnimationFrame(this.loop);
+                this.writeTextToSpeechBubble();
+                this.frameCounter++;
+            }
         };
         this.mouseHandler = (event) => {
             console.log(`xPos ${event.clientX}, yPos ${event.clientY}`);
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a1 != '') {
                     this.setId = this.dialogue[this.currentSet].a1id;
-                    this.score += this.dialogue[this.currentSet].score1;
+                    this.score += this.dialogue[this.currentSet].a1Score;
                     this.progressDialogue();
                 }
                 ;
@@ -19,7 +21,7 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 612 && event.clientY <= 827 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a2 != '') {
                     this.setId = this.dialogue[this.currentSet].a2id;
-                    this.score += this.dialogue[this.currentSet].score2;
+                    this.score += this.dialogue[this.currentSet].a2Score;
                     this.progressDialogue();
                 }
                 ;
@@ -28,7 +30,7 @@ class Game {
             if (event.clientX >= 12 && event.clientX < 948 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a3 != '') {
                     this.setId = this.dialogue[this.currentSet].a3id;
-                    this.score += this.dialogue[this.currentSet].score3;
+                    this.score += this.dialogue[this.currentSet].a3Score;
                     this.progressDialogue();
                 }
                 ;
@@ -37,7 +39,7 @@ class Game {
             if (event.clientX >= 972 && event.clientX < 1907 && event.clientY >= 851 && event.clientY <= 1067 && this.currentScreen === "levelScreen") {
                 if (this.dialogue[this.currentSet].a4 != '') {
                     this.setId = this.dialogue[this.currentSet].a4id;
-                    this.score += this.dialogue[this.currentSet].score4;
+                    this.score += this.dialogue[this.currentSet].a4Score;
                     this.progressDialogue();
                 }
                 ;
@@ -60,6 +62,7 @@ class Game {
                 q1: 'Hey, mijn naam is Ad, \nhoe gaat het met je?',
                 a1: 'A) Met mij gaat alles goed, met jou?',
                 a1id: 2,
+                a1Score: 0,
                 a2: '',
                 a3: '',
                 a4: '',
@@ -69,6 +72,7 @@ class Game {
                 q1: 'Hoe heet je?',
                 a1: 'A) Mijn naam is ...',
                 a1id: 3,
+                a1Score: 0,
                 a2: '',
                 a3: '',
                 a4: '',
@@ -86,7 +90,7 @@ class Game {
                 a3Score: 0,
                 a3id: 4,
                 a4: 'D) Ja',
-                a4Score: 0,
+                a4Score: 100,
                 a4id: 4
             },
             set4: {
@@ -144,42 +148,144 @@ class Game {
                 a1id: 9,
                 a2: 'B) Sporten',
                 a2Score: 0,
-                a2id: 9,
+                a2id: 10,
                 a3: 'C) Gamen',
                 a3Score: 0,
-                a3id: 9,
+                a3id: 11,
                 a4: 'D) Koken',
                 a4Score: 0,
-                a4id: 9,
+                a4id: 12,
             },
             set9: {
-                q1: 'Oh leuk daar hou ik ook van!',
-                a1: 'A) Top',
+                q1: 'Oh leuk, ik hou ook van tekenen',
+                a1: 'A) Leuk',
                 a1Score: 0,
-                a1id: 10,
-                a2: '',
+                a1id: 13,
+                a2: 'B) Dat is toevallig',
+                a2Score: 100,
+                a2id: 13,
                 a3: '',
                 a4: '',
             },
             set10: {
-                q1: 'Daar ben je vast heel goed in',
-                a1: 'A) Zeker weten',
+                q1: 'Oh leuk, ik sport ook graag',
+                a1: 'A) Aan welke sport doe je dan?',
                 a1Score: 0,
-                a1id: 11,
-                score1: '0',
-                a2: '',
-                a3: '',
+                a1id: 14,
+                a2: 'B) Leuk',
+                a2Score: 0,
+                a2id: 13,
+                a3: 'C) Dat is toevallig',
+                a3Score: 100,
+                a3id: 13,
                 a4: '',
             },
             set11: {
-                q1: 'Daar ben je vast heel goed in',
-                a1: 'A) Einde',
+                q1: 'Oh leuk, ik game ook graag, \nvooral Fortnite',
+                a1: 'A) Leuk',
                 a1Score: 0,
-                a1id: 12,
-                a2: '',
+                a1id: 13,
+                a2: 'B) Dat is toevallig',
+                a2Score: 100,
+                a2id: 13,
+                a3: 'C) Hoeveel kills heb je dan?',
+                a3Score: 100,
+                a3id: 15,
+                a4: '',
+            },
+            set12: {
+                q1: 'Daar ben je vast heel goed in',
+                a1: 'A) Zeker',
+                a1Score: 0,
+                a1id: 13,
+                a2: 'B) Ja',
+                a2Score: 0,
+                a2id: 13,
                 a3: '',
                 a4: '',
             },
+            set13: {
+                q1: 'We hebben best veel gemeen, \nwil je eens afspreken?',
+                a1: 'A) Graag',
+                a1Score: 0,
+                a1id: 17,
+                a2: 'B) Tuurlijk',
+                a2Score: 0,
+                a2id: 17,
+                a3: 'C) Liever niet',
+                a3Score: 100,
+                a3id: 18,
+                a4: 'D) Ik ken je nauwelijks',
+                a4Score: 100,
+                a4id: 18,
+            },
+            set14: {
+                q1: 'Cricket',
+                a1: 'A) Leuk',
+                a1Score: 0,
+                a1id: 13,
+                a2: 'B) Daar heb ik nog nooit van gehoord',
+                a2Score: 0,
+                a2id: 16,
+                a3: '',
+                a4: ''
+            },
+            set15: {
+                q1: '10.000',
+                a1: 'A) Zo, dat is veel',
+                a1Score: 100,
+                a1id: 13,
+                a2: '',
+                a3: '',
+                a4: ''
+            },
+            set16: {
+                q1: 'Zoek het op dan',
+                a1: 'A) Laat maar zitten',
+                a1Score: 0,
+                a1id: 13,
+                a2: '',
+                a3: '',
+                a4: ''
+            },
+            set17: {
+                q1: 'Bij mij thuis?',
+                a1: 'A) Helemaal prima, wat is je adres?',
+                a1Score: 0,
+                a1id: 19,
+                a2: 'B) Liever niet',
+                a2Score: 100,
+                a2id: 20,
+                a3: '',
+                a4: ''
+            },
+            set18: {
+                q1: 'Er kan toch niks misgaan',
+                a1: 'A) Mij is altijd verteld dat ik niet mag afspreken met vreemdelingen',
+                a1Score: 100,
+                a1id: 30,
+                a2: '',
+                a3: '',
+                a4: ''
+            },
+            set19: {
+                q1: 'Waldammeweg 120',
+                a1: 'A) Ok, ik kom eraan',
+                a1Score: 0,
+                a1id: 30,
+                a2: 'B) Eerst even aan mijn ouders vragen.',
+                a2Score: 0,
+                a2id: 18,
+                a3: '',
+                a4: ''
+            },
+            set30: {
+                q1: '',
+                a1: '',
+                a2: '',
+                a3: '',
+                a4: ''
+            }
         };
         this.score = 0;
         this.setId = 1;
@@ -258,14 +364,24 @@ class Game {
         }
     }
     ;
-    progressDialogue() {
+    scoreScreen() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.levelScreen();
-        this.joined = '';
-        this.currentSet = 'set' + this.setId;
-        this.adDialogue = this.dialogue[this.currentSet].q1;
-        this.loadAnswers();
-        this.frameCounter = 0;
+        this.writeTextToCanvas(`Je score is ${this.score}`, 140, this.canvas.width / 2, 175);
+        this.currentScreen = "scoreScreen";
+    }
+    progressDialogue() {
+        if (this.setId != 30) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.levelScreen();
+            this.joined = '';
+            this.currentSet = 'set' + this.setId;
+            this.adDialogue = this.dialogue[this.currentSet].q1;
+            this.loadAnswers();
+            this.frameCounter = 0;
+        }
+        else {
+            this.scoreScreen();
+        }
     }
     ;
     loadAnswers() {
