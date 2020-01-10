@@ -65,7 +65,7 @@ class Game {
         this.dialogue = {
             set1: {
                 id: 1,
-                q1: 'Hey, mijn naam is Ad, hoe gaat het met je?',
+                q1: 'Hey, mijn naam is Ad, \nhoe gaat het met je?',
                 a1: 'A) Met mij gaat alles goed, met jou?',
                 a1id: 2,
                 a2: '',
@@ -244,9 +244,9 @@ class Game {
     progressDialogue() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.levelScreen();
+        this.joined = '';
         this.frameCounter = 0;
         this.currentSet = 'set' + this.setId;
-        this.joined = '';
         this.adDialogue = this.dialogue[this.currentSet].q1;
         this.loadAnswers();
     }
