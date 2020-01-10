@@ -210,8 +210,9 @@ class Game {
         this.frameCounter = 0;
         this.adDialogue = this.dialogue.set1.q1;
         this.joined = "";
+        this.inLoop = false;
         this.currentScreen = "titleScreen";
-        this.levelScreen();
+        this.titleScreen();
     }
     ;
     writeTextToSpeechBubble() {
@@ -251,17 +252,20 @@ class Game {
         const choiceBox = "./assets/images/choiceBox.png";
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
-        this.loop();
+        if (this.inLoop == false) {
+            this.loop();
+            this.inLoop = true;
+        }
     }
     ;
     progressDialogue() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.levelScreen();
         this.joined = '';
-        this.frameCounter = 0;
         this.currentSet = 'set' + this.setId;
         this.adDialogue = this.dialogue[this.currentSet].q1;
         this.loadAnswers();
+        this.frameCounter = 0;
     }
     ;
     loadAnswers() {

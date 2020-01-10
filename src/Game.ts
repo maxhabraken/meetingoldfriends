@@ -12,6 +12,7 @@ class Game {
     public setId: number;
     public currentSet: string;
     public score: number;
+    public inLoop: boolean;
 
 
 
@@ -185,15 +186,16 @@ class Game {
         this.array = [];
         this.frameCounter = 0;
         this.adDialogue = this.dialogue.set1.q1
-        this.joined = ""
+        this.joined = "";
+        this.inLoop = false;
 
 
         // allows methods to check which screen the game is on
         this.currentScreen = "titleScreen";
 
         // allows you to write screens to the canvas
-        // this.titleScreen();
-        this.levelScreen();
+        this.titleScreen();
+        // this.levelScreen();
         // this.loop();
     };
 
@@ -251,7 +253,10 @@ class Game {
         this.loadImage(choiceBox, this.choiceBoxPosition);
         this.currentScreen = "levelScreen";
         //runs the loop that contains the animation for the scrolling text and the mouth movement
-        this.loop();
+        if (this.inLoop == false) {
+            this.loop();
+            this.inLoop = true;
+        }
     };
 
     //loads all the assets and text based on what the setnumber is
@@ -259,10 +264,10 @@ class Game {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.levelScreen();
         this.joined = '';
-        this.frameCounter = 0;
         this.currentSet = 'set' + this.setId;
         this.adDialogue = this.dialogue[this.currentSet].q1;
         this.loadAnswers();
+        this.frameCounter = 0;
     };
 
     private mouseHandler = (event: MouseEvent) => {
