@@ -255,7 +255,7 @@ class Game {
                 a1id: 19,
                 a2: 'B) Liever niet',
                 a2Score: 100,
-                a2id: 20,
+                a2id: 18,
                 a3: '',
                 a4: ''
             },
