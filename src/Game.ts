@@ -1,3 +1,5 @@
+// OOP project 2019 / 2020
+// made by maxhabraken, VadimSchmitz and wongus
 class Game {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
